@@ -25,6 +25,7 @@
  * view the LICENSE file that was distributed with this source code.
  */
 
+using MarkdownSharp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -318,6 +319,14 @@ namespace MarkdownSharp
         }
 
 
+        private List<IExtensionInterface> _inlineExtensions = new List<IExtensionInterface>();
+
+        public void AddExtension(IExtensionInterface ext)
+        {
+            _inlineExtensions.Add(ext);
+        }
+
+
         /// <summary>
         /// Perform transformations that occur *within* block-level tags like paragraphs, headers, and list items.
         /// </summary>
@@ -326,6 +335,11 @@ namespace MarkdownSharp
             text = DoCodeSpans(text);
             text = EscapeSpecialCharsWithinTagAttributes(text);
             text = EscapeBackslashes(text);
+
+            // Run extensions
+            foreach (var extension in _inlineExtensions) {
+                text = extension.Transform(text);
+            }
 
             // Images must come first, because ![foo][f] looks like an anchor.
             text = DoImages(text);
