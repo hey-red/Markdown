@@ -21,6 +21,8 @@
  * History: Milan ported the Markdown processor to C#. He granted license to me so I can open source it
  * and let the community contribute to and improve MarkdownSharp.
  * 
+ * For the full copyright and license information,
+ * view the LICENSE file that was distributed with this source code.
  */
 
 
