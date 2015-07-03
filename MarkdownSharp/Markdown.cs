@@ -291,7 +291,7 @@ namespace MarkdownSharp
 
             Cleanup();
 
-            return text + "\n";
+            return text;
         }
 
 
