@@ -104,10 +104,13 @@ namespace MarkdownSharp
         /// </summary>
         public Markdown(MarkdownOptions options)
         {
+            if (!String.IsNullOrEmpty(options.EmptyElementSuffix))
+            {
+                _emptyElementSuffix = options.EmptyElementSuffix;
+            }
             _quoteSingleLine = options.QuoteSinleLine;
             _autoHyperlink = options.AutoHyperlink;
             _autoNewlines = options.AutoNewlines;
-            _emptyElementSuffix = options.EmptyElementSuffix;
             _linkEmails = options.LinkEmails;
             _strictBoldItalic = options.StrictBoldItalic;
             _asteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
