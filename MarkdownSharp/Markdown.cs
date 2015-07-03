@@ -1470,16 +1470,14 @@ namespace MarkdownSharp
 
             if (_linkEmails)
             {
-                // Email addresses: <address@domain.foo>
+                // Email addresses: address@domain.foo
                 string pattern =
-                    @"<
-                      (?:mailto:)?
+                    @"(?:mailto:)?
                       (
                         [-.\w]+
                         \@
                         [-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+
-                      )
-                      >";
+                      )";
                 text = Regex.Replace(text, pattern, new MatchEvaluator(EmailEvaluator), RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
             }
 
