@@ -62,6 +62,7 @@ namespace MarkdownSharp
         ///     Markdown.AutoNewLines (true/false)
         ///     Markdown.AutoHyperlink (true/false)
         ///     Markdown.AsteriskIntraWordEmphasis (true/false)
+        ///     Markdown.QuoteSinleLine (true/false)
         ///     
         /// </summary>
         public Markdown(bool loadOptionsFromConfigFile)
