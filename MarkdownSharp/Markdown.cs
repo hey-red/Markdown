@@ -73,6 +73,9 @@ namespace MarkdownSharp
             {
                 switch (key)
                 {
+                    case "Markdown.QuoteSinleLine":
+                        _quoteSingleLine = Convert.ToBoolean(settings[key]);
+                        break;
                     case "Markdown.AutoHyperlink":
                         _autoHyperlink = Convert.ToBoolean(settings[key]);
                         break;
@@ -100,6 +103,7 @@ namespace MarkdownSharp
         /// </summary>
         public Markdown(MarkdownOptions options)
         {
+            _quoteSingleLine = options.QuoteSinleLine;
             _autoHyperlink = options.AutoHyperlink;
             _autoNewlines = options.AutoNewlines;
             _emptyElementSuffix = options.EmptyElementSuffix;
@@ -108,6 +112,15 @@ namespace MarkdownSharp
             _asteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
         }
 
+        /// <summary>
+        /// Don't grab next lines
+        /// </summary>
+        public bool QuoteSingleLine
+        {
+            get { return _quoteSingleLine; }
+            set { _quoteSingleLine = value; }
+        }
+        private bool _quoteSingleLine = false;
 
         /// <summary>
         /// use ">" for HTML output, or " />" for XHTML output
@@ -1331,11 +1344,24 @@ namespace MarkdownSharp
                 )+
             )", RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline | RegexOptions.Compiled);
 
+        private static Regex _blockquoteSingleLine = new Regex(@"
+            (                           # Wrap whole match in $1
+                (
+                ^[ ]*>[ ]?              # '>' at the start of a line
+                    .+\n                # rest of the first line
+                \n*                     # blanks
+                )+
+            )", RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline | RegexOptions.Compiled);
+
         /// <summary>
         /// Turn Markdown > quoted blocks into HTML blockquote blocks
         /// </summary>
         private string DoBlockQuotes(string text)
         {
+            if (_quoteSingleLine)
+            {
+                return _blockquoteSingleLine.Replace(text, new MatchEvaluator(BlockQuoteEvaluator));
+            }
             return _blockquote.Replace(text, new MatchEvaluator(BlockQuoteEvaluator));
         }
 
