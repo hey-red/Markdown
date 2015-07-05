@@ -301,6 +301,12 @@ namespace MarkdownSharp
         /// </summary>
         private string RunBlockGamut(string text, bool unhash = true, bool createParagraphs = true)
         {
+            // Apply extensions
+            foreach (var extension in _inlineExtensions)
+            {
+                text = extension.Transform(text);
+            }
+
             text = DoHeaders(text);
             text = DoHorizontalRules(text);
             text = DoLists(text);
@@ -335,11 +341,6 @@ namespace MarkdownSharp
             text = DoCodeSpans(text);
             text = EscapeSpecialCharsWithinTagAttributes(text);
             text = EscapeBackslashes(text);
-
-            // Run extensions
-            foreach (var extension in _inlineExtensions) {
-                text = extension.Transform(text);
-            }
 
             // Images must come first, because ![foo][f] looks like an anchor.
             text = DoImages(text);
@@ -1764,6 +1765,5 @@ namespace MarkdownSharp
                 sb.Append(text);
             return sb.ToString();
         }
-
     }
 }

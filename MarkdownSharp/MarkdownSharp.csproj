@@ -65,6 +65,7 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Board\LinkToPost.cs" />
     <Compile Include="Extensions\IExtensionInterface.cs" />
     <Compile Include="Extensions\Mal\Articles.cs" />
     <Compile Include="Extensions\Mal\Profile.cs" />
