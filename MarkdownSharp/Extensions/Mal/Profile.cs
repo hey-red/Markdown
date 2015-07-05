@@ -16,7 +16,7 @@ namespace MarkdownSharp.Extensions.Mal
     /// </summary>
     public class Profile : IExtensionInterface
     {
-        private static Regex _malArticles = new Regex(@"
+        private static Regex _malProfiles = new Regex(@"
                     (?:http\:\/\/)
                     (?:www\.)?
                     myanimelist\.net\/profile\/
@@ -25,7 +25,7 @@ namespace MarkdownSharp.Extensions.Mal
 
         public string Transform(string text)
         {
-            return _malArticles.Replace(text, new MatchEvaluator(ProfileEvaluator));
+            return _malProfiles.Replace(text, new MatchEvaluator(ProfileEvaluator));
         }
 
 
