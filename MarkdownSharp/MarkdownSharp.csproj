@@ -68,6 +68,7 @@
     <Compile Include="Extensions\IExtensionInterface.cs" />
     <Compile Include="Extensions\Mal\Articles.cs" />
     <Compile Include="Extensions\Mal\Profile.cs" />
+    <Compile Include="Extensions\Youtube\LinkToTitle.cs" />
     <Compile Include="Markdown.cs" />
     <Compile Include="MarkdownOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
