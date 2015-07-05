@@ -1367,8 +1367,7 @@ namespace MarkdownSharp
             (                           # Wrap whole match in $1
                 (
                 ^[ ]*>[ ]?              # '>' at the start of a line
-                    .+\n                # rest of the first line
-                \n*                     # blanks
+                    .+                # rest of the first line
                 )+
             )", RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline | RegexOptions.Compiled);
 
