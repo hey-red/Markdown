@@ -33,8 +33,7 @@ namespace MarkdownSharp.Extensions.Mal
         {
             string userName = match.Groups[1].Value;
             return String.Format(
-                "[mal://{0}](http://myanimelist.net/profile/{1})",
-                userName, userName
+                "[mal://{0}](http://myanimelist.net/profile/{0})", userName
             );
         }
     }

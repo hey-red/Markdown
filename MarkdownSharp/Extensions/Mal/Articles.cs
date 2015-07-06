@@ -39,8 +39,8 @@ namespace MarkdownSharp.Extensions.Mal
             string title = WebUtility.UrlDecode(match.Groups[3].Value); // title e.g Kitamura_Eri
 
             return String.Format(
-                "[mal://{0}](http://myanimelist.net/{1}/{2}/{3})", 
-                title, categories, num, title
+                "[mal://{0}](http://myanimelist.net/{1}/{2}/{0})", 
+                title, categories, num
             );
         }
     }

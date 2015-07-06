@@ -37,8 +37,8 @@ namespace MarkdownSharp.Extensions.Wiki
             string title = WebUtility.UrlDecode(match.Groups[2].Value);
 
             return String.Format(
-                "[{0}_wiki://{1}](https://{2}.wikipedia.org/wiki/{3})",
-                lang, title, lang, title
+                "[{0}_wiki://{1}](https://{0}.wikipedia.org/wiki/{1})",
+                lang, title
             );
         }
     }

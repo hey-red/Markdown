@@ -39,7 +39,7 @@ namespace MarkdownSharp.Extensions.Board
             {
                 return String.Format("[>>{0}|{1}](/{0}#f{1})", postID, fileID);
             }
-            return String.Format("[>>{0}](/{0})", postID, postID);
+            return String.Format("[>>{0}](/{0})", postID);
         }
     }
 }
