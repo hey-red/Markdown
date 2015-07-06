@@ -107,13 +107,12 @@ namespace MarkdownSharp.Extensions.Youtube
         /// <param name="ids"></param>
         /// <returns>Return null string if request failed</returns>
         private string RequestToGoogleApi(string ids) {
-            string res = null;
             try
             {
                 using (WebClient client = new WebClient())
                 {
                     client.Encoding = Encoding.UTF8;
-                    res = client.DownloadString(
+                    return client.DownloadString(
                         String.Format(
                             "https://www.googleapis.com/youtube/v3/videos?id={0}&key={1}"+
                             "&part=snippet&fields=items(id,snippet(title))",
@@ -123,7 +122,7 @@ namespace MarkdownSharp.Extensions.Youtube
                 }
             }
             catch {}
-            return res;
+            return null;
         }
 
 
