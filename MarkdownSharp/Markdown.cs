@@ -75,6 +75,9 @@ namespace MarkdownSharp
             {
                 switch (key)
                 {
+                    case "Markdown.DisableHr":
+                        __disableHr = Convert.ToBoolean(settings[key]);
+                        break;
                     case "Markdown.DisableHeaders":
                         _disableHeaders = Convert.ToBoolean(settings[key]);
                         break;
@@ -115,6 +118,7 @@ namespace MarkdownSharp
             {
                 _emptyElementSuffix = options.EmptyElementSuffix;
             }
+            __disableHr = options.DisableHr;
             _disableHeaders = options.DisableHeaders;
             _disableImages = options.DisableImages;
             _quoteSingleLine = options.QuoteSinleLine;
@@ -126,6 +130,19 @@ namespace MarkdownSharp
         }
 
 
+        /// <summary>
+        /// Disable hr parser
+        /// </summary>
+        public bool DisableHr
+        {
+            get { return __disableHr; }
+            set { __disableHr = value; }
+        }
+        private bool __disableHr = false;
+
+        /// <summary>
+        /// Disable header parser
+        /// </summary>
         public bool DisableHeaders
         {
             get { return _disableHeaders; }
@@ -337,8 +354,12 @@ namespace MarkdownSharp
             {
                 text = DoHeaders(text);
             }
+
+            if (!__disableHr)
+            {
+                text = DoHorizontalRules(text);
+            }
             
-            text = DoHorizontalRules(text);
             text = DoLists(text);
             text = DoCodeBlocks(text);
             text = DoBlockQuotes(text);
