@@ -31,6 +31,11 @@ namespace MarkdownSharp
     public class MarkdownOptions
     {
         /// <summary>
+        /// when true, image parser disabled
+        /// </summary>
+        public bool DisableImages { get; set; }
+
+        /// <summary>
         /// when true, quote dont grab next lines
         /// </summary>
         public bool QuoteSinleLine { get; set; }

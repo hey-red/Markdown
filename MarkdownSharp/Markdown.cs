@@ -75,6 +75,9 @@ namespace MarkdownSharp
             {
                 switch (key)
                 {
+                    case "Markdown.DisableImages":
+                        _disableImages = Convert.ToBoolean(settings[key]);
+                        break;
                     case "Markdown.QuoteSinleLine":
                         _quoteSingleLine = Convert.ToBoolean(settings[key]);
                         break;
@@ -109,6 +112,7 @@ namespace MarkdownSharp
             {
                 _emptyElementSuffix = options.EmptyElementSuffix;
             }
+            _disableImages = options.DisableImages;
             _quoteSingleLine = options.QuoteSinleLine;
             _autoHyperlink = options.AutoHyperlink;
             _autoNewlines = options.AutoNewlines;
@@ -116,6 +120,17 @@ namespace MarkdownSharp
             _strictBoldItalic = options.StrictBoldItalic;
             _asteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
         }
+
+
+        /// <summary>
+        /// Disable image parser
+        /// </summary>
+        public bool DisableImages
+        {
+            get { return _disableImages; }
+            set { _disableImages = value; }
+        }
+        private bool _disableImages = false;
 
         /// <summary>
         /// Don't grab next lines
@@ -343,7 +358,11 @@ namespace MarkdownSharp
             text = EscapeBackslashes(text);
 
             // Images must come first, because ![foo][f] looks like an anchor.
-            text = DoImages(text);
+            if (!_disableImages)
+            {
+                text = DoImages(text);
+            }
+            
             text = DoAnchors(text);
 
             // Must come after DoAnchors(), because you can use < and >
