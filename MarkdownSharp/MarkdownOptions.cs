@@ -31,6 +31,11 @@ namespace MarkdownSharp
     public class MarkdownOptions
     {
         /// <summary>
+        /// when true, header parser disabled
+        /// </summary>
+        public bool DisableHeaders { get; set; }
+
+        /// <summary>
         /// when true, image parser disabled
         /// </summary>
         public bool DisableImages { get; set; }

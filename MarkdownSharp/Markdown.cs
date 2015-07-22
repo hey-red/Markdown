@@ -75,6 +75,9 @@ namespace MarkdownSharp
             {
                 switch (key)
                 {
+                    case "Markdown.DisableHeaders":
+                        _disableHeaders = Convert.ToBoolean(settings[key]);
+                        break;
                     case "Markdown.DisableImages":
                         _disableImages = Convert.ToBoolean(settings[key]);
                         break;
@@ -112,6 +115,7 @@ namespace MarkdownSharp
             {
                 _emptyElementSuffix = options.EmptyElementSuffix;
             }
+            _disableHeaders = options.DisableHeaders;
             _disableImages = options.DisableImages;
             _quoteSingleLine = options.QuoteSinleLine;
             _autoHyperlink = options.AutoHyperlink;
@@ -121,6 +125,13 @@ namespace MarkdownSharp
             _asteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
         }
 
+
+        public bool DisableHeaders
+        {
+            get { return _disableHeaders; }
+            set { _disableHeaders = value; }
+        }
+        private bool _disableHeaders = false;
 
         /// <summary>
         /// Disable image parser
@@ -322,7 +333,11 @@ namespace MarkdownSharp
                 text = extension.Transform(text);
             }
 
-            text = DoHeaders(text);
+            if (!_disableHeaders)
+            {
+                text = DoHeaders(text);
+            }
+            
             text = DoHorizontalRules(text);
             text = DoLists(text);
             text = DoCodeBlocks(text);
