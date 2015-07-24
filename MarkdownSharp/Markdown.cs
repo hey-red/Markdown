@@ -944,7 +944,6 @@ namespace MarkdownSharp
         private string AnchorInlineEvaluator(Match match)
         {
             string linkText = SaveFromAutoLinking(match.Groups[2].Value);
-            Console.WriteLine(linkText);
             string url = match.Groups[3].Value;
             string title = match.Groups[6].Value;
             string result;
