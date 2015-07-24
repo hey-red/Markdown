@@ -31,6 +31,11 @@ namespace MarkdownSharp
     public class MarkdownOptions
     {
         /// <summary>
+        /// when true, text link may be empty
+        /// </summary>
+        public bool AllowEmptyLinkText { get; set; }
+
+        /// <summary>
         /// when true, hr parser disabled
         /// </summary>
         public bool DisableHr { get; set; }

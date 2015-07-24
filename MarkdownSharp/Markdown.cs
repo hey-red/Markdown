@@ -75,6 +75,9 @@ namespace MarkdownSharp
             {
                 switch (key)
                 {
+                    case "Markdown.AllowEmptyLinkText":
+                        _allowEmptyLinkText = Convert.ToBoolean(settings[key]);
+                        break;
                     case "Markdown.DisableHr":
                         __disableHr = Convert.ToBoolean(settings[key]);
                         break;
@@ -118,6 +121,7 @@ namespace MarkdownSharp
             {
                 _emptyElementSuffix = options.EmptyElementSuffix;
             }
+            _allowEmptyLinkText = options.AllowEmptyLinkText;
             __disableHr = options.DisableHr;
             _disableHeaders = options.DisableHeaders;
             _disableImages = options.DisableImages;
@@ -129,6 +133,13 @@ namespace MarkdownSharp
             _asteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
         }
 
+
+        public bool AllowEmptyLinkText
+        {
+            get { return _allowEmptyLinkText; }
+            set { _allowEmptyLinkText = value; }
+        }
+        private bool _allowEmptyLinkText = false;
 
         /// <summary>
         /// Disable hr parser
@@ -880,6 +891,11 @@ namespace MarkdownSharp
                     result += " title=\"" + title + "\"";
                 }
 
+                if (String.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
+                {
+                    linkText = url;
+                } 
+
                 result += ">" + linkText + "</a>";
             }
             else
@@ -911,6 +927,11 @@ namespace MarkdownSharp
                     result += " title=\"" + title + "\"";
                 }
 
+                if (String.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
+                {
+                    linkText = url;
+                } 
+
                 result += ">" + linkText + "</a>";
             }
             else
@@ -923,6 +944,7 @@ namespace MarkdownSharp
         private string AnchorInlineEvaluator(Match match)
         {
             string linkText = SaveFromAutoLinking(match.Groups[2].Value);
+            Console.WriteLine(linkText);
             string url = match.Groups[3].Value;
             string title = match.Groups[6].Value;
             string result;
@@ -941,7 +963,13 @@ namespace MarkdownSharp
                 result += string.Format(" title=\"{0}\"", title);
             }
 
+            if (String.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
+            {
+                linkText = url;
+            } 
+
             result += string.Format(">{0}</a>", linkText);
+
             return result;
         }
 
