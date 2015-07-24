@@ -79,7 +79,7 @@ namespace MarkdownSharp
                         _allowEmptyLinkText = Convert.ToBoolean(settings[key]);
                         break;
                     case "Markdown.DisableHr":
-                        __disableHr = Convert.ToBoolean(settings[key]);
+                        _disableHr = Convert.ToBoolean(settings[key]);
                         break;
                     case "Markdown.DisableHeaders":
                         _disableHeaders = Convert.ToBoolean(settings[key]);
@@ -122,7 +122,7 @@ namespace MarkdownSharp
                 _emptyElementSuffix = options.EmptyElementSuffix;
             }
             _allowEmptyLinkText = options.AllowEmptyLinkText;
-            __disableHr = options.DisableHr;
+            _disableHr = options.DisableHr;
             _disableHeaders = options.DisableHeaders;
             _disableImages = options.DisableImages;
             _quoteSingleLine = options.QuoteSinleLine;
@@ -146,10 +146,10 @@ namespace MarkdownSharp
         /// </summary>
         public bool DisableHr
         {
-            get { return __disableHr; }
-            set { __disableHr = value; }
+            get { return _disableHr; }
+            set { _disableHr = value; }
         }
-        private bool __disableHr = false;
+        private bool _disableHr = false;
 
         /// <summary>
         /// Disable header parser
@@ -366,7 +366,7 @@ namespace MarkdownSharp
                 text = DoHeaders(text);
             }
 
-            if (!__disableHr)
+            if (!_disableHr)
             {
                 text = DoHorizontalRules(text);
             }
