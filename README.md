@@ -1,4 +1,4 @@
-# MarkdowmSharp
+# MarkdownSharp
 
 Open source C# implementation of Markdown processor, as featured on Stack Overflow.
 
@@ -6,7 +6,7 @@ This port is based heavily on the original Perl 1.0.1 and Perl 1.0.2b8 implement
 
 # Install
 ```
-PM> Install-Package Markdowm
+PM> Install-Package Markdown
 ```
 
 # Usage
