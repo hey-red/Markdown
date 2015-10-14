@@ -18,10 +18,17 @@ namespace MarkdownSharp.Extensions.Board
     /// </summary>
     public class LinkToPost : IExtensionInterface
     {
-        private static Regex _postLinks = new Regex(@"
-                    (?:>>|&gt;&gt;)
-                    (\d+)
-                    \|?(\d)?", RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace);
+        private string _stw;
+
+        private static Regex _postLinks;
+
+
+        public LinkToPost(string stw = ">>") {
+            _stw = stw;
+            _postLinks = new Regex(
+                String.Format(@"(?:{0})(\d+)\|?(\d)?", _stw), 
+                RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace);
+        }
 
 
         public string Transform(string text)
@@ -37,9 +44,9 @@ namespace MarkdownSharp.Extensions.Board
 
             if (!String.IsNullOrEmpty(fileID))
             {
-                return String.Format("[>>{0}|{1}](/{0}#f{1})", postID, fileID);
+                return String.Format("[{2}{0}|{1}](/{0}#f{1})", postID, fileID, _stw);
             }
-            return String.Format("[>>{0}](/{0})", postID);
+            return String.Format("[{1}{0}](/{0})", postID, _stw);
         }
     }
 }
