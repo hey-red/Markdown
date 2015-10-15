@@ -26,7 +26,7 @@ namespace MarkdownSharp.Extensions.Board
         public LinkToPost(string stw = ">>") {
             _stw = stw;
             _postLinks = new Regex(
-                String.Format(@"(?:{0})(\d+)\|?(\d)?", _stw), 
+                String.Format(@"(?:{0})(\d+)(?:\|(\d+))?", _stw), 
                 RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace);
         }
 
