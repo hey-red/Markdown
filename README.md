@@ -27,7 +27,7 @@ var options = new MarkdownOptions
     AutoHyperlink = true,
     AutoNewlines = true,
     LinkEmails = true,
-    QuoteSinleLine = true,
+    QuoteSingleLine = true,
     StrictBoldItalic = true
 }
 
