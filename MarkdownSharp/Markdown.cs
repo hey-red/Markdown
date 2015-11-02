@@ -87,7 +87,7 @@ namespace MarkdownSharp
                     case "Markdown.DisableImages":
                         _disableImages = Convert.ToBoolean(settings[key]);
                         break;
-                    case "Markdown.QuoteSinleLine":
+                    case "Markdown.QuoteSingleLine":
                         _quoteSingleLine = Convert.ToBoolean(settings[key]);
                         break;
                     case "Markdown.AutoHyperlink":
@@ -125,7 +125,7 @@ namespace MarkdownSharp
             _disableHr = options.DisableHr;
             _disableHeaders = options.DisableHeaders;
             _disableImages = options.DisableImages;
-            _quoteSingleLine = options.QuoteSinleLine;
+            _quoteSingleLine = options.QuoteSingleLine;
             _autoHyperlink = options.AutoHyperlink;
             _autoNewlines = options.AutoNewlines;
             _linkEmails = options.LinkEmails;

@@ -22,11 +22,11 @@ string text = mark.Transform(text);
 
 # Options
 ```C#
-var options new MarkdownOptions 
+var options = new MarkdownOptions 
 {
     AutoHyperlink = true,
     AutoNewlines = true,
-    inkEmails = true,
+    LinkEmails = true,
     QuoteSinleLine = true,
     StrictBoldItalic = true
 }

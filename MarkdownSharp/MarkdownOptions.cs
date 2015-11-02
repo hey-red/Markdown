@@ -53,7 +53,7 @@ namespace MarkdownSharp
         /// <summary>
         /// when true, quote dont grab next lines
         /// </summary>
-        public bool QuoteSinleLine { get; set; }
+        public bool QuoteSingleLine { get; set; }
 
         /// <summary>
         /// when true, (most) bare plain URLs are auto-hyperlinked  
