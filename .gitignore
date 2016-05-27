@@ -40,3 +40,4 @@ build/
 *.log
 *.scc
 *.nupkg
+*.pfx
