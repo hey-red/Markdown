@@ -108,6 +108,9 @@ namespace MarkdownSharp
                     case "Markdown.AsteriskIntraWordEmphasis":
                         _asteriskIntraWordEmphasis = Convert.ToBoolean(settings[key]);
                         break;
+                    case "Markdown.DisableEncodeCodeBlock":
+                        _disableEncodeCodeBlock = Convert.ToBoolean(settings[key]);
+                        break;
                 }
             }
         }
@@ -131,6 +134,7 @@ namespace MarkdownSharp
             _linkEmails = options.LinkEmails;
             _strictBoldItalic = options.StrictBoldItalic;
             _asteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
+            _disableEncodeCodeBlock = options.DisableEncodeCodeBlock;
         }
 
 
@@ -170,6 +174,16 @@ namespace MarkdownSharp
             set { _disableImages = value; }
         }
         private bool _disableImages = false;
+
+        /// <summary>
+        /// Disable code block encoding
+        /// </summary>
+        public bool DisableEncodeCodeBlock
+        {
+            get { return _disableEncodeCodeBlock; }
+            set { _disableEncodeCodeBlock = value; }
+        }
+        private bool _disableEncodeCodeBlock = false;
 
         /// <summary>
         /// Don't grab next lines
@@ -1656,12 +1670,17 @@ namespace MarkdownSharp
         }
 
         private static Regex _codeEncoder = new Regex(@"&|<|>|\\|\*|_|\{|\}|\[|\]", RegexOptions.Compiled);
+        private static Regex _codeEncoderWithoutEntities = new Regex(@"\\|\*|_|\{|\}|\[|\]", RegexOptions.Compiled);
 
         /// <summary>
         /// Encode/escape certain Markdown characters inside code blocks and spans where they are literals
         /// </summary>
         private string EncodeCode(string code)
         {
+            if (_disableEncodeCodeBlock)
+            {
+                return _codeEncoderWithoutEntities.Replace(code, EncodeCodeEvaluator);
+            }
             return _codeEncoder.Replace(code, EncodeCodeEvaluator);
         }
         private string EncodeCodeEvaluator(Match match)

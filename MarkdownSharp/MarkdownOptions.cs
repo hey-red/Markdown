@@ -89,5 +89,10 @@ namespace MarkdownSharp
         /// this does nothing if StrictBoldItalic is false
         /// </summary>
         public bool AsteriskIntraWordEmphasis { get; set; }
+
+        /// <summary>
+        /// when true, HTML entities are not replaced with special characters
+        /// </summary>
+        public bool DisableEncodeCodeBlock { get; set; }
     }
 }
