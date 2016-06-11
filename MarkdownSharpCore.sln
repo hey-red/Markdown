@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6618B47-0DCD-4F31-8DA0-5B86EAA18D45}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MarkdownSharp", "src\MarkdownSharp\MarkdownSharp.xproj", "{C7D90432-2BB5-4EBF-A0E8-1D7A1BF2661C}"
