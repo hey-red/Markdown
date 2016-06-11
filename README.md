@@ -4,9 +4,13 @@ Open source C# implementation of Markdown processor, as featured on Stack Overfl
 
 This port is based heavily on the original Perl 1.0.1 and Perl 1.0.2b8 implementations of Markdown, with bits and pieces of the apparently much better maintained PHP Markdown folded into it. There are a few Stack Overflow specific modifications (which are all configurable, and all off by default). I'd like to ensure that this version stays within shouting distance of the Markdown "specification", such as it is...
 
-# Install
+# Install stable version
 ```
 PM> Install-Package Markdown
+```
+or beta with .NET Core support
+```
+PM> Install-Package Markdown -Pre
 ```
 
 # Usage
@@ -34,23 +38,18 @@ var options = new MarkdownOptions
 Markdown mark = new Markdown(options);
 mark.Transform(text);
 ```
-See more options and docs [in MarkdownOptions](MarkdownSharp/MarkdownOptions.cs)
-
-Also, options can loaded from a configuration file.
+See more options and docs [in MarkdownOptions](src/MarkdownSharp/MarkdownOptions.cs)
 
 # Extensions
 ```C#
 using MarkdownSharp;
-using MarkdownSharp.Extensions.Mal;
+using YourMarkdownExtension.Extension;
 
 Markdown mark = new Markdown();
 
-// Short link for MAL - 
-// http://myanimelist.net/people/413/Kitamura_Eri => mal://Kitamura_Eri
-mark.AddExtension(new Articles()); 
-mark.AddExtension(new Profile());
+mark.AddExtension(new Extension());
 
 mark.Transform(text);
 ```
 
-To create your own extensions you need to implement ```IExtensionInterface```.
+To create your own extensions you need to implement ```IMarkdownExtension```.
