@@ -25,10 +25,8 @@
  * view the LICENSE file that was distributed with this source code.
  */
 
-using MarkdownSharp.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -42,77 +40,15 @@ namespace MarkdownSharp
     /// </summary>
     public class Markdown
     {
-        private const string _version = "1.14.5";
+        private const string _version = "1.14.7";
 
         #region Constructors and Options
 
         /// <summary>
         /// Create a new Markdown instance using default options
         /// </summary>
-        public Markdown() : this(false)
+        public Markdown()
         {
-        }
-
-        /// <summary>
-        /// Create a new Markdown instance and optionally load options from a configuration
-        /// file. There they should be stored in the appSettings section, available options are:
-        /// 
-        ///     Markdown.StrictBoldItalic (true/false)
-        ///     Markdown.EmptyElementSuffix (">" or " />" without the quotes)
-        ///     Markdown.LinkEmails (true/false)
-        ///     Markdown.AutoNewLines (true/false)
-        ///     Markdown.AutoHyperlink (true/false)
-        ///     Markdown.AsteriskIntraWordEmphasis (true/false)
-        ///     Markdown.QuoteSinleLine (true/false)
-        ///     
-        /// </summary>
-        public Markdown(bool loadOptionsFromConfigFile)
-        {
-            if (!loadOptionsFromConfigFile) return;
-
-            var settings = ConfigurationManager.AppSettings;
-            foreach (string key in settings.Keys)
-            {
-                switch (key)
-                {
-                    case "Markdown.AllowEmptyLinkText":
-                        _allowEmptyLinkText = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.DisableHr":
-                        _disableHr = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.DisableHeaders":
-                        _disableHeaders = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.DisableImages":
-                        _disableImages = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.QuoteSingleLine":
-                        _quoteSingleLine = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.AutoHyperlink":
-                        _autoHyperlink = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.AutoNewlines":
-                        _autoNewlines = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.EmptyElementSuffix":
-                        _emptyElementSuffix = settings[key];
-                        break;
-                    case "Markdown.LinkEmails":
-                        _linkEmails = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.StrictBoldItalic":
-                        _strictBoldItalic = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.AsteriskIntraWordEmphasis":
-                        _asteriskIntraWordEmphasis = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.DisableEncodeCodeBlock":
-                        _disableEncodeCodeBlock = Convert.ToBoolean(settings[key]);
-                        break;
-                }
-            }
         }
 
         /// <summary>
@@ -120,7 +56,7 @@ namespace MarkdownSharp
         /// </summary>
         public Markdown(MarkdownOptions options)
         {
-            if (!String.IsNullOrEmpty(options.EmptyElementSuffix))
+            if (!string.IsNullOrEmpty(options.EmptyElementSuffix))
             {
                 _emptyElementSuffix = options.EmptyElementSuffix;
             }
@@ -401,9 +337,9 @@ namespace MarkdownSharp
         }
 
 
-        private List<IExtensionInterface> _inlineExtensions = new List<IExtensionInterface>();
+        private List<IMarkdownExtension> _inlineExtensions = new List<IMarkdownExtension>();
 
-        public void AddExtension(IExtensionInterface ext)
+        public void AddExtension(IMarkdownExtension ext)
         {
             _inlineExtensions.Add(ext);
         }

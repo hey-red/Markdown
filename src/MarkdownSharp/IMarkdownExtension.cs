@@ -5,9 +5,9 @@
  */
 
 
-namespace MarkdownSharp.Extensions
+namespace MarkdownSharp
 {
-    public interface IExtensionInterface
+    public interface IMarkdownExtension
     {
         /// <summary>
         /// Replace inline element

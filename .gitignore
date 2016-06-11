@@ -42,3 +42,4 @@ build/
 *.nupkg
 *.pfx
 .vs/
+*.lock.json
