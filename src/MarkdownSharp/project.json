@@ -1,16 +1,28 @@
 ﻿{
-  "title": "MarkdownSharp",
-  "description": "Open source C# implementation of Markdown processor, as featured on Stack Overflow.",
-  "version": "1.14.7-beta",
+  "title": "Markdown",
+  "description": "Open source C# implementation of Markdown processor, as featured on Stack Overflow. This port is based heavily on the original Perl 1.0.1 and Perl 1.0.2b8 implementations of Markdown, with bits and pieces of the apparently much better maintained PHP Markdown folded into it. There are a few Stack Overflow specific modifications (which are all configurable, and all off by default). I'd like to ensure that this version stays within shouting distance of the Markdown \"specification\", such as it is...",
+  "version": "1.14.7",
+  "packOptions": {
+    "summary": "Open source C# implementation of Markdown processor, as featured on Stack Overflow.",
+    "tags": [ "markdown" ],
+    "projectUrl": "https://github.com/hey-red/markdownsharp",
+    "repository": { "type": "git" },
+    "licenseUrl": "https://raw.githubusercontent.com/hey-red/markdownsharp/master/LICENSE"
+  },
+  "authors": [ "red" ],
   "frameworks": {
     "net45": {},
-    "netstandard1.5": {
+    "netstandard1.3": {
       "dependencies": {
-        "System.Collections": "4.0.11-rc2-24027",
-        "System.Runtime.Extensions": "4.1.0-rc2-24027",
-        "System.Text.RegularExpressions": "4.0.12-rc2-24027"
+        "System.Collections": "4.0.11",
+        "System.Runtime.Extensions": "4.1.0",
+        "System.Text.RegularExpressions": "4.1.0"
       },
-      "imports": "dotnet"
+      "imports": [
+        "dotnet",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
     }
   }
 }
