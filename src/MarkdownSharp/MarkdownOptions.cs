@@ -26,7 +26,7 @@
  */
 
 
-namespace MarkdownSharp
+namespace HeyRed.MarkdownSharp
 {
     public class MarkdownOptions
     {

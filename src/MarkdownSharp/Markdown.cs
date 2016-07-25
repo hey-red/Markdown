@@ -31,7 +31,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 
-namespace MarkdownSharp
+namespace HeyRed.MarkdownSharp
 {
     /// <summary>
     /// Markdown is a text-to-HTML conversion tool for web writers. 
