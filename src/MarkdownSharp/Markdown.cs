@@ -40,8 +40,6 @@ namespace HeyRed.MarkdownSharp
     /// </summary>
     public class Markdown
     {
-        private const string _version = "1.14.7";
-
         #region Constructors and Options
 
         /// <summary>
@@ -262,14 +260,6 @@ namespace HeyRed.MarkdownSharp
             _backslashEscapes = new Regex(backslashPattern.Substring(0, backslashPattern.Length - 1), RegexOptions.Compiled);
         }
 
-        /// <summary>
-        /// current version of MarkdownSharp;  
-        /// see http://code.google.com/p/markdownsharp/ for the latest code or to contribute
-        /// </summary>
-        public string Version
-        {
-            get { return _version; }
-        }
 
         /// <summary>
         /// Transforms the provided Markdown-formatted text to HTML;  
