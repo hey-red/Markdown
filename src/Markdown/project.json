@@ -26,5 +26,8 @@
         "portable-net45+win8"
       ]
     }
+  },
+  "buildOptions": {
+    "keyFile": "../../key.snk"
   }
 }
