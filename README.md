@@ -1,4 +1,4 @@
-# MarkdownSharp
+# Markdown
 
 Open source C# implementation of Markdown processor, as featured on Stack Overflow.
 
@@ -11,7 +11,7 @@ PM> Install-Package Markdown
 
 # Usage
 ```C#
-using MarkdownSharp;
+using HeyRed.MarkdownSharp;
 
 // Create new markdown instance
 Markdown mark = new Markdown();
@@ -34,11 +34,11 @@ var options = new MarkdownOptions
 Markdown mark = new Markdown(options);
 mark.Transform(text);
 ```
-See more options and docs [in MarkdownOptions](src/MarkdownSharp/MarkdownOptions.cs)
+See more options and docs [in MarkdownOptions](src/Markdown/MarkdownOptions.cs)
 
 # Extensions
 ```C#
-using MarkdownSharp;
+using HeyRed.MarkdownSharp;
 using YourMarkdownExtension.Extension;
 
 Markdown mark = new Markdown();
