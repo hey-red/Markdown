@@ -7,7 +7,8 @@
     "tags": [ "markdown" ],
     "projectUrl": "https://github.com/hey-red/markdownsharp",
     "repository": { "type": "git" },
-    "licenseUrl": "https://raw.githubusercontent.com/hey-red/markdownsharp/master/LICENSE"
+    "licenseUrl": "https://raw.githubusercontent.com/hey-red/markdownsharp/master/LICENSE",
+    "releaseNotes": "Updated namespace.\r\nRemove version property."
   },
   "authors": [ "red" ],
   "frameworks": {
