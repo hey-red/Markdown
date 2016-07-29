@@ -203,7 +203,7 @@ namespace HeyRed.MarkdownSharpTests
         [Fact]
         public void InlineLinkkWithTitle()
         {
-            string input = "Have you visited [Example](http://www.example.com \"Title\") before?";
+            string input = "Have you visited [example](http://www.example.com \"Title\") before?";
             string expected = "<p>Have you visited <a href=\"http://www.example.com\" title=\"Title\">Example</a> before?</p>";
 
             string actual = _instance.Transform(input);
