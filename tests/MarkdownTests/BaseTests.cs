@@ -201,10 +201,32 @@ namespace HeyRed.MarkdownSharpTests
         }
 
         [Fact]
+        public void LocalLink()
+        {
+            string input = "Have you visited [example](/example) before?";
+            string expected = "<p>Have you visited <a href=\"/example\">example</a> before?</p>";
+
+            string actual = _instance.Transform(input);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void LocalLinkWithTitle()
+        {
+            string input = "Have you visited [example](/example \"Title\") before?";
+            string expected = "<p>Have you visited <a href=\"/example\" title=\"Title\">example</a> before?</p>";
+
+            string actual = _instance.Transform(input);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void LinkWithTitle()
         {
             string input = "Have you visited [example](http://www.example.com \"Title\") before?";
-            string expected = "<p>Have you visited <a href=\"http://www.example.com\" title=\"Title\">Example</a> before?</p>";
+            string expected = "<p>Have you visited <a href=\"http://www.example.com\" title=\"Title\">example</a> before?</p>";
 
             string actual = _instance.Transform(input);
 
