@@ -58,19 +58,26 @@ namespace HeyRed.MarkdownSharp
             {
                 _emptyElementSuffix = options.EmptyElementSuffix;
             }
+            _allowTargetBlank = options.AllowTargetBlank;
             _allowEmptyLinkText = options.AllowEmptyLinkText;
             _disableHr = options.DisableHr;
             _disableHeaders = options.DisableHeaders;
             _disableImages = options.DisableImages;
+            _disableEncodeCodeBlock = options.DisableEncodeCodeBlock;
             _quoteSingleLine = options.QuoteSingleLine;
             _autoHyperlink = options.AutoHyperlink;
             _autoNewlines = options.AutoNewlines;
             _linkEmails = options.LinkEmails;
             _strictBoldItalic = options.StrictBoldItalic;
             _asteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
-            _disableEncodeCodeBlock = options.DisableEncodeCodeBlock;
         }
 
+        public bool AllowTargetBlank
+        {
+            get { return _allowTargetBlank; }
+            set { _allowTargetBlank = value; }
+        }
+        private bool _allowTargetBlank = false;
 
         public bool AllowEmptyLinkText
         {
@@ -757,12 +764,32 @@ namespace HeyRed.MarkdownSharp
                         ({1})               # href = $3
                         [ ]*
                         (                   # $4
-                        (['""])           # quote char = $5
+                        (['""])             # quote char = $5
                         (.*?)               # title = $6
                         \5                  # matching quote
                         [ ]*                # ignore any spaces between closing quote and )
                         )?                  # title is optional
                     \)
+                )", GetNestedBracketsPattern(), GetNestedParensPattern()),
+                  RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
+
+        private static Regex _anchorInlineWithTargetBlank = new Regex(string.Format(@"
+                (                           # wrap whole match in $1
+                    \[
+                        ({0})               # link text = $2
+                    \]
+                    \(                      # literal paren
+                        [ ]*
+                        ({1})               # href = $3
+                        [ ]*
+                        (                   # $4
+                        (['""])             # quote char = $5
+                        (.*?)               # title = $6
+                        \5                  # matching quote
+                        [ ]*                # ignore any spaces between closing quote and )
+                        )?                  # title is optional
+                    \)
+                    ([\+])?                 # target blank = $7  
                 )", GetNestedBracketsPattern(), GetNestedParensPattern()),
                   RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
@@ -789,8 +816,15 @@ namespace HeyRed.MarkdownSharp
             // First, handle reference-style links: [link text] [id]
             text = _anchorRef.Replace(text, new MatchEvaluator(AnchorRefEvaluator));
 
-            // Next, inline-style links: [link text](url "optional title") or [link text](url "optional title")
-            text = _anchorInline.Replace(text, new MatchEvaluator(AnchorInlineEvaluator));
+            // Next, inline-style links: [link text](url "optional title") or [link text](url "optional title")+ - with target blank
+            if (_allowTargetBlank)
+            {
+                _anchorInlineWithTargetBlank.Replace(text, new MatchEvaluator(AnchorInlineEvaluator));
+            }
+            else
+            {
+                text = _anchorInline.Replace(text, new MatchEvaluator(AnchorInlineEvaluator));
+            }
 
             //  Last, handle reference-style shortcuts: [link text]
             //  These must come last in case you've also got [link test][1]
@@ -886,6 +920,7 @@ namespace HeyRed.MarkdownSharp
             string linkText = SaveFromAutoLinking(match.Groups[2].Value);
             string url = match.Groups[3].Value;
             string title = match.Groups[6].Value;
+            bool targetBlank = match.Groups[7].Value == "+";
             string result;
 
             if (url.StartsWith("<") && url.EndsWith(">"))
@@ -905,7 +940,11 @@ namespace HeyRed.MarkdownSharp
             if (String.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
             {
                 linkText = url;
-            } 
+            }
+
+            if (targetBlank && _allowTargetBlank) {
+                result += " target=\"_blank\"";
+            }
 
             result += string.Format(">{0}</a>", linkText);
 

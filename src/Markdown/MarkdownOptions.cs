@@ -31,6 +31,12 @@ namespace HeyRed.MarkdownSharp
     public class MarkdownOptions
     {
         /// <summary>
+        /// when true, inline links supports target blank
+        /// WARNING: this is a significant deviation from the markdown spec
+        /// </summary>
+        public bool AllowTargetBlank { get; set; }
+
+        /// <summary>
         /// when true, text link may be empty
         /// </summary>
         public bool AllowEmptyLinkText { get; set; }
@@ -49,6 +55,11 @@ namespace HeyRed.MarkdownSharp
         /// when true, image parser disabled
         /// </summary>
         public bool DisableImages { get; set; }
+
+        /// <summary>
+        /// when true, HTML entities are not replaced with special characters
+        /// </summary>
+        public bool DisableEncodeCodeBlock { get; set; }
 
         /// <summary>
         /// when true, quote dont grab next lines
@@ -89,10 +100,5 @@ namespace HeyRed.MarkdownSharp
         /// this does nothing if StrictBoldItalic is false
         /// </summary>
         public bool AsteriskIntraWordEmphasis { get; set; }
-
-        /// <summary>
-        /// when true, HTML entities are not replaced with special characters
-        /// </summary>
-        public bool DisableEncodeCodeBlock { get; set; }
     }
 }
