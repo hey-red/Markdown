@@ -280,6 +280,17 @@ namespace HeyRed.MarkdownSharpTests
         }
 
         [Fact]
+        public void ReferenceLinkWithoutShortcut()
+        {
+            string input = "This is [a link][].\n\n  [a link]: http://www.example.com";
+            string expected = "<p>This is <a href=\"http://www.example.com\">a link</a>.</p>";
+
+            string actual = _instance.Transform(input);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void LinkWithoutAutoHyperLink()
         {
             string input = "Have you visited http://www.example.com before?";
