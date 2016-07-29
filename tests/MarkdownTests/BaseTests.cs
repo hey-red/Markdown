@@ -201,6 +201,17 @@ namespace HeyRed.MarkdownSharpTests
         }
 
         [Fact]
+        public void InlineLinkkWithTitle()
+        {
+            string input = "Have you visited [Example](http://www.example.com \"Title\") before?";
+            string expected = "<p>Have you visited <a href=\"http://www.example.com\" title=\"Title\">Example</a> before?</p>";
+
+            string actual = _instance.Transform(input);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void InlineLinkWithoutDescription()
         {
             string input = "Have you visited [](http://www.example.com) before?";
