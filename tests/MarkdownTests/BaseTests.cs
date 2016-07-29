@@ -201,6 +201,17 @@ namespace HeyRed.MarkdownSharpTests
         }
 
         [Fact]
+        public void LinkWithTitle()
+        {
+            string input = "Have you visited [example](http://www.example.com \"Title\") before?";
+            string expected = "<p>Have you visited <a href=\"http://www.example.com\" title=\"Title\">example</a> before?</p>";
+
+            string actual = _instance.Transform(input);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void LocalLink()
         {
             string input = "Have you visited [example](/example) before?";
@@ -216,17 +227,6 @@ namespace HeyRed.MarkdownSharpTests
         {
             string input = "Have you visited [example](/example \"Title\") before?";
             string expected = "<p>Have you visited <a href=\"/example\" title=\"Title\">example</a> before?</p>";
-
-            string actual = _instance.Transform(input);
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void LinkWithTitle()
-        {
-            string input = "Have you visited [example](http://www.example.com \"Title\") before?";
-            string expected = "<p>Have you visited <a href=\"http://www.example.com\" title=\"Title\">example</a> before?</p>";
 
             string actual = _instance.Transform(input);
 
@@ -262,6 +262,17 @@ namespace HeyRed.MarkdownSharpTests
         {
             string input = "This is [a link][1].\n\n  [1]: http://www.example.com";
             string expected = "<p>This is <a href=\"http://www.example.com\">a link</a>.</p>";
+
+            string actual = _instance.Transform(input);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ReferenceLinkWithTitle()
+        {
+            string input = "This is [a link][1].\n\n  [1]: http://www.example.com \"Title\"";
+            string expected = "<p>This is <a href=\"http://www.example.com\" title=\"Title\">a link</a>.</p>";
 
             string actual = _instance.Transform(input);
 
