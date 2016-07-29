@@ -789,7 +789,7 @@ namespace HeyRed.MarkdownSharp
                         [ ]*                # ignore any spaces between closing quote and )
                         )?                  # title is optional
                     \)
-                    ([\+])?                 # target blank = $7  
+                    ([\+])?                 # target blank = $7
                 )", GetNestedBracketsPattern(), GetNestedParensPattern()),
                   RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
@@ -819,7 +819,7 @@ namespace HeyRed.MarkdownSharp
             // Next, inline-style links: [link text](url "optional title") or [link text](url "optional title")+ - with target blank
             if (_allowTargetBlank)
             {
-                _anchorInlineWithTargetBlank.Replace(text, new MatchEvaluator(AnchorInlineEvaluator));
+                text = _anchorInlineWithTargetBlank.Replace(text, new MatchEvaluator(AnchorInlineEvaluator));
             }
             else
             {
