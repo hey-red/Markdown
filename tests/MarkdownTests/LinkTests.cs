@@ -19,6 +19,19 @@ namespace HeyRed.MarkdownSharpTests
         }
 
         [Fact]
+        public void LinkWithTargetBlank()
+        {
+            string input = "Have you visited [example](http://www.example.com)+ before?";
+            string expected = "<p>Have you visited <a href=\"http://www.example.com\" target=\"_blank\">example</a> before?</p>";
+
+            _instance.AllowTargetBlank = true;
+            string actual = _instance.Transform(input);
+            _instance.AllowTargetBlank = false;
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void LinkWithTitle()
         {
             string input = "Have you visited [example](http://www.example.com \"Title\") before?";
