@@ -202,8 +202,8 @@ namespace HeyRed.MarkdownSharp
         {
             public Token(TokenType type, string value)
             {
-                this.Type = type;
-                this.Value = value;
+                Type = type;
+                Value = value;
             }
             public TokenType Type;
             public string Value;
@@ -273,7 +273,7 @@ namespace HeyRed.MarkdownSharp
         /// </remarks>
         public string Transform(string text)
         {
-            if (String.IsNullOrEmpty(text)) return "";
+            if (string.IsNullOrEmpty(text)) return "";
 
             Setup();
 
