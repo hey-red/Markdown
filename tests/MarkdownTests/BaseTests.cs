@@ -190,7 +190,7 @@ namespace HeyRed.MarkdownSharpTests
         }
 
         [Fact]
-        public void InlineLink()
+        public void Link()
         {
             string input = "Have you visited [example](http://www.example.com) before?";
             string expected = "<p>Have you visited <a href=\"http://www.example.com\">example</a> before?</p>";
@@ -201,7 +201,7 @@ namespace HeyRed.MarkdownSharpTests
         }
 
         [Fact]
-        public void InlineLinkkWithTitle()
+        public void LinkWithTitle()
         {
             string input = "Have you visited [example](http://www.example.com \"Title\") before?";
             string expected = "<p>Have you visited <a href=\"http://www.example.com\" title=\"Title\">Example</a> before?</p>";
@@ -212,7 +212,7 @@ namespace HeyRed.MarkdownSharpTests
         }
 
         [Fact]
-        public void InlineLinkWithoutDescription()
+        public void LinkWithoutDescription()
         {
             string input = "Have you visited [](http://www.example.com) before?";
             string expected = "<p>Have you visited <a href=\"http://www.example.com\"></a> before?</p>";
