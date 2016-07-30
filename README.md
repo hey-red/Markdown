@@ -49,3 +49,6 @@ mark.Transform(text);
 ```
 
 To create your own extensions you need to implement ```IMarkdownExtension```.
+
+# Syntax
+https://daringfireball.net/projects/markdown/syntax
