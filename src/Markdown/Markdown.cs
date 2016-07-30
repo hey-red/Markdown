@@ -865,7 +865,7 @@ namespace HeyRed.MarkdownSharp
                     result += " title=\"" + title + "\"";
                 }
 
-                if (String.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
+                if (string.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
                 {
                     linkText = url;
                 } 
@@ -901,7 +901,7 @@ namespace HeyRed.MarkdownSharp
                     result += " title=\"" + title + "\"";
                 }
 
-                if (String.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
+                if (string.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
                 {
                     linkText = url;
                 } 
@@ -930,14 +930,14 @@ namespace HeyRed.MarkdownSharp
 
             result = string.Format("<a href=\"{0}\"", url);
 
-            if (!String.IsNullOrEmpty(title))
+            if (!string.IsNullOrEmpty(title))
             {
                 title = AttributeEncode(title);
                 title = EscapeBoldItalic(title);
                 result += string.Format(" title=\"{0}\"", title);
             }
 
-            if (String.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
+            if (string.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
             {
                 linkText = url;
             }
@@ -966,7 +966,7 @@ namespace HeyRed.MarkdownSharp
 
                     )", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
-        private static Regex _imagesInline = new Regex(String.Format(@"
+        private static Regex _imagesInline = new Regex(string.Format(@"
               (                     # wrap whole match in $1
                 !\[
                     (.*?)           # alt text = $2
@@ -1062,7 +1062,7 @@ namespace HeyRed.MarkdownSharp
             altText = EscapeImageAltText(AttributeEncode(altText));
             url = AttributeSafeUrl(url);
             var result = string.Format("<img src=\"{0}\" alt=\"{1}\"", url, altText);
-            if (!String.IsNullOrEmpty(title))
+            if (!string.IsNullOrEmpty(title))
             {
                 title = AttributeEncode(EscapeBoldItalic(title));
                 result += string.Format(" title=\"{0}\"", title);

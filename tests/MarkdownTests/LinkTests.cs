@@ -144,5 +144,16 @@ namespace HeyRed.MarkdownSharpTests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void ProtocolRelativeLink()
+        {
+            string input = "Have you visited [example](//www.example.com) before?";
+            string expected = "<p>Have you visited <a href=\"//www.example.com\">example</a> before?</p>";
+
+            string actual = _instance.Transform(input);
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
