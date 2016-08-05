@@ -42,6 +42,23 @@ namespace HeyRed.MarkdownSharp
     {
         #region Constructors and Options
 
+        public string EmptyElementSuffix { get; set; } = " />";
+
+        public bool AllowTargetBlank { get; set; } = false;
+        public bool AllowEmptyLinkText { get; set; } = false;
+
+        public bool DisableHr { get; set; } = false;
+        public bool DisableHeaders { get; set; } = false;
+        public bool DisableImages { get; set; } = false;
+        public bool DisableEncodeCodeBlock { get; set; } = false;
+
+        public bool QuoteSingleLine { get; set; } = false;
+        public bool AutoHyperlink { get; set; } = false;
+        public bool AutoNewLines { get; set; } = false;
+        public bool LinkEmails { get; set; } = true;
+        public bool StrictBoldItalic { get; set; } = false;
+        public bool AsteriskIntraWordEmphasis { get; set; } = false;
+
         /// <summary>
         /// Create a new Markdown instance using default options
         /// </summary>
@@ -56,150 +73,21 @@ namespace HeyRed.MarkdownSharp
         {
             if (!string.IsNullOrEmpty(options.EmptyElementSuffix))
             {
-                _emptyElementSuffix = options.EmptyElementSuffix;
+                EmptyElementSuffix = options.EmptyElementSuffix;
             }
-            _allowTargetBlank = options.AllowTargetBlank;
-            _allowEmptyLinkText = options.AllowEmptyLinkText;
-            _disableHr = options.DisableHr;
-            _disableHeaders = options.DisableHeaders;
-            _disableImages = options.DisableImages;
-            _disableEncodeCodeBlock = options.DisableEncodeCodeBlock;
-            _quoteSingleLine = options.QuoteSingleLine;
-            _autoHyperlink = options.AutoHyperlink;
-            _autoNewlines = options.AutoNewlines;
-            _linkEmails = options.LinkEmails;
-            _strictBoldItalic = options.StrictBoldItalic;
-            _asteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
+            AllowTargetBlank = options.AllowTargetBlank;
+            AllowEmptyLinkText = options.AllowEmptyLinkText;
+            DisableHr = options.DisableHr;
+            DisableHeaders = options.DisableHeaders;
+            DisableImages = options.DisableImages;
+            DisableEncodeCodeBlock = options.DisableEncodeCodeBlock;
+            QuoteSingleLine = options.QuoteSingleLine;
+            AutoHyperlink = options.AutoHyperlink;
+            AutoNewLines = options.AutoNewlines;
+            LinkEmails = options.LinkEmails;
+            StrictBoldItalic = options.StrictBoldItalic;
+            AsteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
         }
-
-        public bool AllowTargetBlank
-        {
-            get { return _allowTargetBlank; }
-            set { _allowTargetBlank = value; }
-        }
-        private bool _allowTargetBlank = false;
-
-        public bool AllowEmptyLinkText
-        {
-            get { return _allowEmptyLinkText; }
-            set { _allowEmptyLinkText = value; }
-        }
-        private bool _allowEmptyLinkText = false;
-
-        /// <summary>
-        /// Disable hr parser
-        /// </summary>
-        public bool DisableHr
-        {
-            get { return _disableHr; }
-            set { _disableHr = value; }
-        }
-        private bool _disableHr = false;
-
-        /// <summary>
-        /// Disable header parser
-        /// </summary>
-        public bool DisableHeaders
-        {
-            get { return _disableHeaders; }
-            set { _disableHeaders = value; }
-        }
-        private bool _disableHeaders = false;
-
-        /// <summary>
-        /// Disable image parser
-        /// </summary>
-        public bool DisableImages
-        {
-            get { return _disableImages; }
-            set { _disableImages = value; }
-        }
-        private bool _disableImages = false;
-
-        /// <summary>
-        /// Disable code block encoding
-        /// </summary>
-        public bool DisableEncodeCodeBlock
-        {
-            get { return _disableEncodeCodeBlock; }
-            set { _disableEncodeCodeBlock = value; }
-        }
-        private bool _disableEncodeCodeBlock = false;
-
-        /// <summary>
-        /// Don't grab next lines
-        /// </summary>
-        public bool QuoteSingleLine
-        {
-            get { return _quoteSingleLine; }
-            set { _quoteSingleLine = value; }
-        }
-        private bool _quoteSingleLine = false;
-
-        /// <summary>
-        /// use ">" for HTML output, or " />" for XHTML output
-        /// </summary>
-        public string EmptyElementSuffix
-        {
-            get { return _emptyElementSuffix; }
-            set { _emptyElementSuffix = value; }
-        }
-        private string _emptyElementSuffix = " />";
-
-        /// <summary>
-        /// when false, email addresses will never be auto-linked  
-        /// WARNING: this is a significant deviation from the markdown spec
-        /// </summary>
-        public bool LinkEmails
-        {
-            get { return _linkEmails; }
-            set { _linkEmails = value; }
-        }
-        private bool _linkEmails = true;
-
-        /// <summary>
-        /// when true, bold and italic require non-word characters on either side  
-        /// WARNING: this is a significant deviation from the markdown spec
-        /// </summary>
-        public bool StrictBoldItalic
-        {
-            get { return _strictBoldItalic; }
-            set { _strictBoldItalic = value; }
-        }
-        private bool _strictBoldItalic = false;
-
-        /// <summary>
-        /// when true, asterisks may be used for intraword emphasis
-        /// this does nothing if StrictBoldItalic is false
-        /// </summary>
-        public bool AsteriskIntraWordEmphasis
-        {
-            get { return _asteriskIntraWordEmphasis; }
-            set { _asteriskIntraWordEmphasis = value; }
-        }
-        private bool _asteriskIntraWordEmphasis = false;
-
-        /// <summary>
-        /// when true, RETURN becomes a literal newline  
-        /// WARNING: this is a significant deviation from the markdown spec
-        /// </summary>
-        public bool AutoNewLines
-        {
-            get { return _autoNewlines; }
-            set { _autoNewlines = value; }
-        }
-        private bool _autoNewlines = false;
-
-        /// <summary>
-        /// when true, (most) bare plain URLs are auto-hyperlinked  
-        /// WARNING: this is a significant deviation from the markdown spec
-        /// </summary>
-        public bool AutoHyperlink
-        {
-            get { return _autoHyperlink; }
-            set { _autoHyperlink = value; }
-        }
-        private bool _autoHyperlink = false;
 
         #endregion
 
@@ -308,12 +196,12 @@ namespace HeyRed.MarkdownSharp
                 text = extension.Transform(text);
             }
 
-            if (!_disableHeaders)
+            if (!DisableHeaders)
             {
                 text = DoHeaders(text);
             }
 
-            if (!_disableHr)
+            if (!DisableHr)
             {
                 text = DoHorizontalRules(text);
             }
@@ -352,7 +240,7 @@ namespace HeyRed.MarkdownSharp
             text = EscapeBackslashes(text);
 
             // Images must come first, because ![foo][f] looks like an anchor.
-            if (!_disableImages)
+            if (!DisableImages)
             {
                 text = DoImages(text);
             }
@@ -817,7 +705,7 @@ namespace HeyRed.MarkdownSharp
             text = _anchorRef.Replace(text, new MatchEvaluator(AnchorRefEvaluator));
 
             // Next, inline-style links: [link text](url "optional title") or [link text](url "optional title")+ - with target blank
-            if (_allowTargetBlank)
+            if (AllowTargetBlank)
             {
                 text = _anchorInlineWithTargetBlank.Replace(text, new MatchEvaluator(AnchorInlineEvaluator));
             }
@@ -865,7 +753,7 @@ namespace HeyRed.MarkdownSharp
                     result += " title=\"" + title + "\"";
                 }
 
-                if (string.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
+                if (string.IsNullOrEmpty(linkText) && !AllowEmptyLinkText)
                 {
                     linkText = url;
                 } 
@@ -901,7 +789,7 @@ namespace HeyRed.MarkdownSharp
                     result += " title=\"" + title + "\"";
                 }
 
-                if (string.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
+                if (string.IsNullOrEmpty(linkText) && !AllowEmptyLinkText)
                 {
                     linkText = url;
                 } 
@@ -937,12 +825,12 @@ namespace HeyRed.MarkdownSharp
                 result += string.Format(" title=\"{0}\"", title);
             }
 
-            if (string.IsNullOrEmpty(linkText) && !_allowEmptyLinkText)
+            if (string.IsNullOrEmpty(linkText) && !AllowEmptyLinkText)
             {
                 linkText = url;
             }
 
-            if (targetBlank && _allowTargetBlank) {
+            if (targetBlank && AllowTargetBlank) {
                 result += " target=\"_blank\"";
             }
 
@@ -1067,7 +955,7 @@ namespace HeyRed.MarkdownSharp
                 title = AttributeEncode(EscapeBoldItalic(title));
                 result += string.Format(" title=\"{0}\"", title);
             }
-            result += _emptyElementSuffix;
+            result += EmptyElementSuffix;
             return result;
         }
 
@@ -1149,7 +1037,7 @@ namespace HeyRed.MarkdownSharp
         /// </remarks>
         private string DoHorizontalRules(string text)
         {
-            return _horizontalRules.Replace(text, "<hr" + _emptyElementSuffix + "\n");
+            return _horizontalRules.Replace(text, "<hr" + EmptyElementSuffix + "\n");
         }
 
         private static string _wholeList = string.Format(@"
@@ -1379,9 +1267,9 @@ namespace HeyRed.MarkdownSharp
             if (!(text.Contains("*") || text.Contains("_")))
                 return text;
             // <strong> must go first, then <em>
-            if (_strictBoldItalic)
+            if (StrictBoldItalic)
             {
-                if (_asteriskIntraWordEmphasis)
+                if (AsteriskIntraWordEmphasis)
                 {
                     text = _semiStrictBold.Replace(text, "$1<strong>$3</strong>");
                     text = _semiStrictItalic.Replace(text, "$1<em>$3</em>");
@@ -1407,10 +1295,10 @@ namespace HeyRed.MarkdownSharp
         /// </summary>
         private string DoHardBreaks(string text)
         {
-            if (_autoNewlines)
-                text = Regex.Replace(text, @"\n", string.Format("<br{0}\n", _emptyElementSuffix));
+            if (AutoNewLines)
+                text = Regex.Replace(text, @"\n", string.Format("<br{0}\n", EmptyElementSuffix));
             else
-                text = Regex.Replace(text, @" {2,}\n", string.Format("<br{0}\n", _emptyElementSuffix));
+                text = Regex.Replace(text, @" {2,}\n", string.Format("<br{0}\n", EmptyElementSuffix));
             return text;
         }
 
@@ -1437,7 +1325,7 @@ namespace HeyRed.MarkdownSharp
         /// </summary>
         private string DoBlockQuotes(string text)
         {
-            if (_quoteSingleLine)
+            if (QuoteSingleLine)
             {
                 return _blockquoteSingleLine.Replace(text, new MatchEvaluator(BlockQuoteEvaluator));
             }
@@ -1532,7 +1420,7 @@ namespace HeyRed.MarkdownSharp
         private string DoAutoLinks(string text)
         {
 
-            if (_autoHyperlink)
+            if (AutoHyperlink)
             {
                 // fixup arbitrary URLs by adding Markdown < > so they get linked as well
                 // note that at this point, all other URL in the text are already hyperlinked as <a href=""></a>
@@ -1543,7 +1431,7 @@ namespace HeyRed.MarkdownSharp
             // Hyperlinks: <http://foo.com>
             text = Regex.Replace(text, "<((https?|ftp):[^'\">\\s]+)>", new MatchEvaluator(HyperlinkEvaluator));
 
-            if (_linkEmails)
+            if (LinkEmails)
             {
                 // Email addresses: address@domain.foo
                 string pattern =
@@ -1642,7 +1530,7 @@ namespace HeyRed.MarkdownSharp
         /// </summary>
         private string EncodeCode(string code)
         {
-            if (_disableEncodeCodeBlock)
+            if (DisableEncodeCodeBlock)
             {
                 return _codeEncoderWithoutEntities.Replace(code, EncodeCodeEvaluator);
             }
@@ -1755,7 +1643,7 @@ namespace HeyRed.MarkdownSharp
                 {
                     value = value.Replace(@"\", _escapeTable[@"\"]);
                     
-                    if (_autoHyperlink && value.StartsWith("<!")) // escape slashes in comments to prevent autolinking there -- http://meta.stackexchange.com/questions/95987/html-comment-containing-url-breaks-if-followed-by-another-html-comment
+                    if (AutoHyperlink && value.StartsWith("<!")) // escape slashes in comments to prevent autolinking there -- http://meta.stackexchange.com/questions/95987/html-comment-containing-url-breaks-if-followed-by-another-html-comment
                         value = value.Replace("/", _escapeTable["/"]);
                     
                     value = Regex.Replace(value, "(?<=.)</?code>(?=.)", _escapeTable[@"`"]);
