@@ -129,6 +129,13 @@ namespace HeyRed.MarkdownSharp
         private int _listLevel;
         private static string AutoLinkPreventionMarker = "\x1AP"; // temporarily replaces "://" where auto-linking shouldn't happen
 
+        private List<IMarkdownExtension> _extensions = new List<IMarkdownExtension>();
+
+        public void AddExtension(IMarkdownExtension ext)
+        {
+            _extensions.Add(ext);
+        }
+
         /// <summary>
         /// In the static constuctor we'll initialize what stays the same across all transforms.
         /// </summary>
@@ -170,6 +177,12 @@ namespace HeyRed.MarkdownSharp
         {
             if (string.IsNullOrEmpty(text)) return "";
 
+            // Apply extensions before..
+            foreach (var extension in _extensions)
+            {
+                text = extension.Transform(text);
+            }
+
             Setup();
 
             text = Normalize(text);
@@ -190,12 +203,6 @@ namespace HeyRed.MarkdownSharp
         /// </summary>
         private string RunBlockGamut(string text, bool unhash = true, bool createParagraphs = true)
         {
-            // Apply extensions
-            foreach (var extension in _inlineExtensions)
-            {
-                text = extension.Transform(text);
-            }
-
             if (!DisableHeaders)
             {
                 text = DoHeaders(text);
@@ -215,18 +222,9 @@ namespace HeyRed.MarkdownSharp
             // we're escaping the markup we've just created, so that we don't wrap
             // <p> tags around block-level tags.
             text = HashHTMLBlocks(text);
-
             text = FormParagraphs(text, unhash: unhash, createParagraphs: createParagraphs);
 
             return text;
-        }
-
-
-        private List<IMarkdownExtension> _inlineExtensions = new List<IMarkdownExtension>();
-
-        public void AddExtension(IMarkdownExtension ext)
-        {
-            _inlineExtensions.Add(ext);
         }
 
 
