@@ -58,7 +58,7 @@ namespace HeyRed.MarkdownSharp
         public bool LinkEmails { get; set; } = true;
         public bool StrictBoldItalic { get; set; } = false;
         public bool AsteriskIntraWordEmphasis { get; set; } = false;
-        public bool EmailAddressMustBeSurroundedByAngleBrackets { get; set; } = false;
+        public bool EmailAddressMustBeSurroundedByAngleBrackets { get; set; } = true;
 
         /// <summary>
         /// Create a new Markdown instance using default options
@@ -1441,7 +1441,7 @@ namespace HeyRed.MarkdownSharp
                         \@
                         [-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+
                       )";
-                // Email addresses: <address@domain.foo> (to enable 
+                // Email addresses: <address@domain.foo> (to keep enable compatibility with https://code.google.com/archive/p/markdownsharp/)
                 if (EmailAddressMustBeSurroundedByAngleBrackets)
                 {
                     pattern = $"<{pattern}>";

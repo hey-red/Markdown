@@ -157,12 +157,29 @@ namespace HeyRed.MarkdownSharpTests
         }
 
         [Fact]
-        public void EmailAddress()
+        public void EmailAddressWhenLinkEmailsIsFalse()
         {
+            var options = new MarkdownOptions { EmailAddressMustBeSurroundedByAngleBrackets = false, LinkEmails = false };
+            var markdown = new Markdown(options);
+
+            string input = "Send an email to address@example.com or <address2@example.com> for help";
+            string expected = "<p>Send an email to address@example.com or <address2@example.com> for help</p>";
+
+            string actual = markdown.Transform(input);
+
+            Assert.Matches(expected, actual);
+        }
+
+        [Fact]
+        public void EmailAddressWhenEmailDoesNotNeedToBeSurroundedByAngleBrackets()
+        {
+            var options = new MarkdownOptions { EmailAddressMustBeSurroundedByAngleBrackets = false, LinkEmails = true };
+            var markdown = new Markdown(options);
+
             string input = "Send an email to address@example.com for help";
             string expected = "<p>Send an email to <a href=\".*\">.*</a> for help</p>";
 
-            string actual = _instance.Transform(input);
+            string actual = markdown.Transform(input);
 
             Assert.Matches(expected, actual);
         }

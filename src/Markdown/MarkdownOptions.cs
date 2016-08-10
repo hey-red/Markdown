@@ -105,6 +105,6 @@ namespace HeyRed.MarkdownSharp
         /// when true, email addresses are only turned into hyperlinks
         /// when they are surrounded by angle brackets (&lt;address@domain.com&gt;)
         /// </summary>
-        public bool EmailAddressMustBeSurroundedByAngleBrackets { get; set; }
+        public bool EmailAddressMustBeSurroundedByAngleBrackets { get; set; } = true;
     }
 }
