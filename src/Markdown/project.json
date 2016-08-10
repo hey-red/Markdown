@@ -9,7 +9,7 @@
     "repository": { "type": "git" },
     "licenseUrl": "https://raw.githubusercontent.com/hey-red/Markdown/master/LICENSE",
     "iconUrl": "https://raw.githubusercontent.com/hey-red/Markdown/master/icon.png",
-    "releaseNotes": "Updated namespace.\r\nRemove version property."
+    "releaseNotes": "AllowEmptyLinkText option true by default.\r\nEmails auto-linked only with angle brackets(<address@example.com>).\r\nAdded option to autolink emails without angle brackets(address@example.com).\r\nAdded target=\"_blank\" support."
   },
   "authors": [ "red" ],
   "frameworks": {
