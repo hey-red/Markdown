@@ -102,9 +102,8 @@ namespace HeyRed.MarkdownSharp
         public bool AsteriskIntraWordEmphasis { get; set; }
 
         /// <summary>
-        /// when true, email addresses are only turned into hyperlinks
-        /// when they are surrounded by angle brackets (&lt;address@domain.com&gt;)
+        /// when true, email addresses will be auto-linked without angle brackets
         /// </summary>
-        public bool EmailAddressMustBeSurroundedByAngleBrackets { get; set; } = true;
+        public bool LinkEmailsWithoutAngleBrackets { get; set; }
     }
 }

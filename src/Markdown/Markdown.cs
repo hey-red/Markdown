@@ -56,9 +56,9 @@ namespace HeyRed.MarkdownSharp
         public bool AutoHyperlink { get; set; } = false;
         public bool AutoNewLines { get; set; } = false;
         public bool LinkEmails { get; set; } = true;
+        public bool LinkEmailsWithoutAngleBrackets { get; set; } = false;
         public bool StrictBoldItalic { get; set; } = false;
         public bool AsteriskIntraWordEmphasis { get; set; } = false;
-        public bool EmailAddressMustBeSurroundedByAngleBrackets { get; set; } = true;
 
         /// <summary>
         /// Create a new Markdown instance using default options
@@ -86,9 +86,9 @@ namespace HeyRed.MarkdownSharp
             AutoHyperlink = options.AutoHyperlink;
             AutoNewLines = options.AutoNewlines;
             LinkEmails = options.LinkEmails;
+            LinkEmailsWithoutAngleBrackets = options.LinkEmailsWithoutAngleBrackets;
             StrictBoldItalic = options.StrictBoldItalic;
             AsteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
-            EmailAddressMustBeSurroundedByAngleBrackets = options.EmailAddressMustBeSurroundedByAngleBrackets;
         }
 
         #endregion
@@ -1441,8 +1441,10 @@ namespace HeyRed.MarkdownSharp
                         \@
                         [-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+
                       )";
-                // Email addresses: <address@domain.foo> (to keep enable compatibility with https://code.google.com/archive/p/markdownsharp/)
-                if (EmailAddressMustBeSurroundedByAngleBrackets)
+
+
+                // Email addresses: <address@domain.foo>
+                if (!LinkEmailsWithoutAngleBrackets)
                 {
                     pattern = $"<{pattern}>";
                 }
