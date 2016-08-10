@@ -58,6 +58,7 @@ namespace HeyRed.MarkdownSharp
         public bool LinkEmails { get; set; } = true;
         public bool StrictBoldItalic { get; set; } = false;
         public bool AsteriskIntraWordEmphasis { get; set; } = false;
+        public bool EmailAddressMustBeSurroundedByAngleBrackets { get; set; } = false;
 
         /// <summary>
         /// Create a new Markdown instance using default options
@@ -87,6 +88,7 @@ namespace HeyRed.MarkdownSharp
             LinkEmails = options.LinkEmails;
             StrictBoldItalic = options.StrictBoldItalic;
             AsteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
+            EmailAddressMustBeSurroundedByAngleBrackets = options.EmailAddressMustBeSurroundedByAngleBrackets;
         }
 
         #endregion
@@ -1439,6 +1441,11 @@ namespace HeyRed.MarkdownSharp
                         \@
                         [-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+
                       )";
+                // Email addresses: <address@domain.foo> (to enable 
+                if (EmailAddressMustBeSurroundedByAngleBrackets)
+                {
+                    pattern = $"<{pattern}>";
+                }
                 text = Regex.Replace(text, pattern, new MatchEvaluator(EmailEvaluator), RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
             }
 

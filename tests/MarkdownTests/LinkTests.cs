@@ -155,5 +155,29 @@ namespace HeyRed.MarkdownSharpTests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void EmailAddress()
+        {
+            string input = "Send an email to address@example.com for help";
+            string expected = "<p>Send an email to <a href=\".*\">.*</a> for help</p>";
+
+            string actual = _instance.Transform(input);
+
+            Assert.Matches(expected, actual);
+        }
+
+        [Fact]
+        public void EmailAddressWhenEmailMustBeSurroundedByAngleBrackets()
+        {
+            var options = new MarkdownOptions { EmailAddressMustBeSurroundedByAngleBrackets = true, LinkEmails = true };
+            var markdown = new Markdown(options);
+            string input = "this email address 'address@example.com' should not be encoded, but this email address '<address@example.com>' should";
+            string expected = "<p>this email address 'address@example.com' should not be encoded, but this email address '<a href=\".*\">.*</a>' should</p>";
+
+            string actual = markdown.Transform(input);
+
+            Assert.Matches(expected, actual);
+        }
     }
 }

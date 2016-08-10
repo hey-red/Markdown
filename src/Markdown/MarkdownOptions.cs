@@ -100,5 +100,11 @@ namespace HeyRed.MarkdownSharp
         /// this does nothing if StrictBoldItalic is false
         /// </summary>
         public bool AsteriskIntraWordEmphasis { get; set; }
+
+        /// <summary>
+        /// when true, email addresses are only turned into hyperlinks
+        /// when they are surrounded by angle brackets (&lt;address@domain.com&gt;)
+        /// </summary>
+        public bool EmailAddressMustBeSurroundedByAngleBrackets { get; set; }
     }
 }
