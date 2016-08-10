@@ -155,5 +155,46 @@ namespace HeyRed.MarkdownSharpTests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void EmailAddressWhenLinkEmailsIsFalse()
+        {
+            var options = new MarkdownOptions { EmailAddressMustBeSurroundedByAngleBrackets = false, LinkEmails = false };
+            var markdown = new Markdown(options);
+
+            string input = "Send an email to address@example.com or <address2@example.com> for help";
+            string expected = "<p>Send an email to address@example.com or <address2@example.com> for help</p>";
+
+            string actual = markdown.Transform(input);
+
+            Assert.Matches(expected, actual);
+        }
+
+        [Fact]
+        public void EmailAddressWhenEmailDoesNotNeedToBeSurroundedByAngleBrackets()
+        {
+            var options = new MarkdownOptions { EmailAddressMustBeSurroundedByAngleBrackets = false, LinkEmails = true };
+            var markdown = new Markdown(options);
+
+            string input = "Send an email to address@example.com for help";
+            string expected = "<p>Send an email to <a href=\".*\">.*</a> for help</p>";
+
+            string actual = markdown.Transform(input);
+
+            Assert.Matches(expected, actual);
+        }
+
+        [Fact]
+        public void EmailAddressWhenEmailMustBeSurroundedByAngleBrackets()
+        {
+            var options = new MarkdownOptions { EmailAddressMustBeSurroundedByAngleBrackets = true, LinkEmails = true };
+            var markdown = new Markdown(options);
+            string input = "this email address 'address@example.com' should not be encoded, but this email address '<address@example.com>' should";
+            string expected = "<p>this email address 'address@example.com' should not be encoded, but this email address '<a href=\".*\">.*</a>' should</p>";
+
+            string actual = markdown.Transform(input);
+
+            Assert.Matches(expected, actual);
+        }
     }
 }
