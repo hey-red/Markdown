@@ -45,7 +45,7 @@ namespace HeyRed.MarkdownSharp
         public string EmptyElementSuffix { get; set; } = " />";
 
         public bool AllowTargetBlank { get; set; } = false;
-        public bool AllowEmptyLinkText { get; set; } = false;
+        public bool AllowEmptyLinkText { get; set; } = true;
 
         public bool DisableHr { get; set; } = false;
         public bool DisableHeaders { get; set; } = false;
