@@ -188,5 +188,30 @@ namespace HeyRed.MarkdownSharpTests
 
             Assert.Equal(expected, actual);
         }
+        
+        
+        [Fact]
+        public void DemotingHeader1()
+        {
+            string input = "#Header 1\nHeader 1\n========";
+            string expected = "<h3>Header 1</h3>\n\n<h3>Header 1</h3>";
+
+            _instance.DemoteHeadersOffset = 2;
+            string actual = _instance.Transform(input);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DemotingHeader2()
+        {
+            string input = "##Header 2\nHeader 2\n--------";
+            string expected = "<h4>Header 2</h4>\n\n<h4>Header 2</h4>";
+
+            _instance.DemoteHeadersOffset = 2;
+            string actual = _instance.Transform(input);
+
+            Assert.Equal(expected, actual);
+        }
     }
 }

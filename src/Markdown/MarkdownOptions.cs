@@ -105,5 +105,10 @@ namespace HeyRed.MarkdownSharp
         /// when true, email addresses will be auto-linked without angle brackets
         /// </summary>
         public bool LinkEmailsWithoutAngleBrackets { get; set; }
+        
+        /// <summary>
+        /// Offsets the header tags by given value. For example when value is set to 2 the top level header will be rendered as <h3> instead of <h1>. This is useful to create semantically correct html documents when markdown output is embedded into a html which already contains headers.
+        /// </summary>
+        public int DemoteHeadersOffset { get; set; }
     }
 }

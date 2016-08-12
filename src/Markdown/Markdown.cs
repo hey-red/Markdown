@@ -59,6 +59,7 @@ namespace HeyRed.MarkdownSharp
         public bool LinkEmailsWithoutAngleBrackets { get; set; } = false;
         public bool StrictBoldItalic { get; set; } = false;
         public bool AsteriskIntraWordEmphasis { get; set; } = false;
+        public int DemoteHeadersOffset { get; set; } = 0;
 
         /// <summary>
         /// Create a new Markdown instance using default options
@@ -89,6 +90,7 @@ namespace HeyRed.MarkdownSharp
             LinkEmailsWithoutAngleBrackets = options.LinkEmailsWithoutAngleBrackets;
             StrictBoldItalic = options.StrictBoldItalic;
             AsteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
+            DemoteHeadersOffset = options.DemoteHeadersOffset;
         }
 
         #endregion
@@ -1004,6 +1006,7 @@ namespace HeyRed.MarkdownSharp
         {
             string header = match.Groups[1].Value;
             int level = match.Groups[2].Value.StartsWith("=") ? 1 : 2;
+            level += DemoteHeadersOffset;
             return string.Format("<h{1}>{0}</h{1}>\n\n", RunSpanGamut(header), level);
         }
 
@@ -1011,6 +1014,7 @@ namespace HeyRed.MarkdownSharp
         {
             string header = match.Groups[2].Value;
             int level = match.Groups[1].Value.Length;
+            level += DemoteHeadersOffset;
             return string.Format("<h{1}>{0}</h{1}>\n\n", RunSpanGamut(header), level);
         }
 
