@@ -43,24 +43,80 @@ namespace HeyRed.MarkdownSharp
         #region Constructors and Options
         private readonly MarkdownOptions _options = new MarkdownOptions();
 
-        public string EmptyElementSuffix { get { return _options.EmptyElementSuffix; } set { _options.EmptyElementSuffix = value; } }
+        public string EmptyElementSuffix {
+            get { return _options.EmptyElementSuffix; }
+            set { _options.EmptyElementSuffix = value; }
+        }
 
-        public bool AllowTargetBlank { get { return _options.AllowTargetBlank; } set { _options.AllowTargetBlank = value; } }
-        public bool AllowEmptyLinkText { get { return _options.AllowEmptyLinkText; } set { _options.AllowEmptyLinkText = value; } }
+        public bool AllowTargetBlank {
+            get { return _options.AllowTargetBlank; }
+            set { _options.AllowTargetBlank = value; }
+        }
 
-        public bool DisableHr { get { return _options.DisableHr; } set { _options.DisableHr = value; } }
-        public bool DisableHeaders { get { return _options.DisableHeaders; } set { _options.DisableHeaders = value; } }
-        public bool DisableImages { get { return _options.DisableImages; } set { _options.DisableImages = value; } }
-        public bool DisableEncodeCodeBlock { get { return _options.DisableEncodeCodeBlock; } set { _options.DisableEncodeCodeBlock = value; } }
+        public bool AllowEmptyLinkText {
+            get { return _options.AllowEmptyLinkText; }
+            set { _options.AllowEmptyLinkText = value; }
+        }
 
-        public bool QuoteSingleLine { get { return _options.QuoteSingleLine; } set { _options.QuoteSingleLine = value; } }
-        public bool AutoHyperlink { get { return _options.AutoHyperlink; } set { _options.AutoHyperlink = value; } }
-        public bool AutoNewLines { get { return _options.AutoNewLines ;} set { _options.AutoNewLines = value; } }
-        public bool LinkEmails { get { return _options.LinkEmails; } set { _options.LinkEmails = value; } }
-        public bool LinkEmailsWithoutAngleBrackets { get { return _options.LinkEmailsWithoutAngleBrackets; } set { _options.LinkEmailsWithoutAngleBrackets = value; } }
-        public bool StrictBoldItalic { get { return _options.StrictBoldItalic; } set { _options.StrictBoldItalic = value; } }
-        public bool AsteriskIntraWordEmphasis { get { return _options.AsteriskIntraWordEmphasis; } set { _options.AsteriskIntraWordEmphasis = value; } }
-        public int DemoteHeadersOffset { get { return _options.DemoteHeadersOffset; } set { _options.DemoteHeadersOffset = value; } }
+        public bool DisableHr {
+            get { return _options.DisableHr; }
+            set { _options.DisableHr = value; }
+        }
+
+        public bool DisableHeaders {
+            get { return _options.DisableHeaders; }
+            set { _options.DisableHeaders = value; }
+        }
+
+        public bool DisableImages {
+            get { return _options.DisableImages; }
+            set { _options.DisableImages = value; }
+        }
+
+        public bool DisableEncodeCodeBlock {
+            get { return _options.DisableEncodeCodeBlock; }
+            set { _options.DisableEncodeCodeBlock = value; }
+        }
+
+        public bool QuoteSingleLine {
+            get { return _options.QuoteSingleLine; }
+            set { _options.QuoteSingleLine = value; }
+        }
+
+        public bool AutoHyperlink {
+            get { return _options.AutoHyperlink; }
+            set { _options.AutoHyperlink = value; }
+        }
+
+        public bool AutoNewLines {
+            get { return _options.AutoNewLines ;}
+            set { _options.AutoNewLines = value; }
+        }
+
+        public bool LinkEmails {
+            get { return _options.LinkEmails; }
+            set { _options.LinkEmails = value; }
+        }
+
+        public bool LinkEmailsWithoutAngleBrackets {
+            get { return _options.LinkEmailsWithoutAngleBrackets; }
+            set { _options.LinkEmailsWithoutAngleBrackets = value; }
+        }
+
+        public bool StrictBoldItalic {
+            get { return _options.StrictBoldItalic; }
+            set { _options.StrictBoldItalic = value; }
+        }
+
+        public bool AsteriskIntraWordEmphasis {
+            get { return _options.AsteriskIntraWordEmphasis; }
+            set { _options.AsteriskIntraWordEmphasis = value; }
+        }
+
+        public int DemoteHeadersOffset {
+            get { return _options.DemoteHeadersOffset; }
+            set { _options.DemoteHeadersOffset = value; }
+        }
 
         /// <summary>
         /// Create a new Markdown instance using default options
@@ -76,7 +132,6 @@ namespace HeyRed.MarkdownSharp
         {
             _options = options;
         }
-
         #endregion
 
         private enum TokenType { Text, Tag }
