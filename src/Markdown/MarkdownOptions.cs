@@ -39,7 +39,7 @@ namespace HeyRed.MarkdownSharp
         /// <summary>
         /// when true, text link may be empty
         /// </summary>
-        public bool AllowEmptyLinkText { get; set; }
+        public bool AllowEmptyLinkText { get; set; } = true;
 
         /// <summary>
         /// when true, hr parser disabled
@@ -76,18 +76,18 @@ namespace HeyRed.MarkdownSharp
         /// when true, RETURN becomes a literal newline  
         /// WARNING: this is a significant deviation from the markdown spec
         /// </summary>
-        public bool AutoNewlines { get; set; }
+        public bool AutoNewLines { get; set; }
 
         /// <summary>
         /// use ">" for HTML output, or " />" for XHTML output
         /// </summary>
-        public string EmptyElementSuffix { get; set; }
+        public string EmptyElementSuffix { get; set; } = " />";
 
         /// <summary>
         /// when false, email addresses will never be auto-linked  
         /// WARNING: this is a significant deviation from the markdown spec
         /// </summary>
-        public bool LinkEmails { get; set; }
+        public bool LinkEmails { get; set; } = true;
 
         /// <summary>
         /// when true, bold and italic require non-word characters on either side  

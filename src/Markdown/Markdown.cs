@@ -41,25 +41,26 @@ namespace HeyRed.MarkdownSharp
     public class Markdown
     {
         #region Constructors and Options
+        private readonly MarkdownOptions _options = new MarkdownOptions();
 
-        public string EmptyElementSuffix { get; set; } = " />";
+        public string EmptyElementSuffix { get { return _options.EmptyElementSuffix; } set { _options.EmptyElementSuffix = value; } }
 
-        public bool AllowTargetBlank { get; set; } = false;
-        public bool AllowEmptyLinkText { get; set; } = true;
+        public bool AllowTargetBlank { get { return _options.AllowTargetBlank; } set { _options.AllowTargetBlank = value; } }
+        public bool AllowEmptyLinkText { get { return _options.AllowEmptyLinkText; } set { _options.AllowEmptyLinkText = value; } }
 
-        public bool DisableHr { get; set; } = false;
-        public bool DisableHeaders { get; set; } = false;
-        public bool DisableImages { get; set; } = false;
-        public bool DisableEncodeCodeBlock { get; set; } = false;
+        public bool DisableHr { get { return _options.DisableHr; } set { _options.DisableHr = value; } }
+        public bool DisableHeaders { get { return _options.DisableHeaders; } set { _options.DisableHeaders = value; } }
+        public bool DisableImages { get { return _options.DisableImages; } set { _options.DisableImages = value; } }
+        public bool DisableEncodeCodeBlock { get { return _options.DisableEncodeCodeBlock; } set { _options.DisableEncodeCodeBlock = value; } }
 
-        public bool QuoteSingleLine { get; set; } = false;
-        public bool AutoHyperlink { get; set; } = false;
-        public bool AutoNewLines { get; set; } = false;
-        public bool LinkEmails { get; set; } = true;
-        public bool LinkEmailsWithoutAngleBrackets { get; set; } = false;
-        public bool StrictBoldItalic { get; set; } = false;
-        public bool AsteriskIntraWordEmphasis { get; set; } = false;
-        public int DemoteHeadersOffset { get; set; } = 0;
+        public bool QuoteSingleLine { get { return _options.QuoteSingleLine; } set { _options.QuoteSingleLine = value; } }
+        public bool AutoHyperlink { get { return _options.AutoHyperlink; } set { _options.AutoHyperlink = value; } }
+        public bool AutoNewLines { get { return _options.AutoNewLines ;} set { _options.AutoNewLines = value; } }
+        public bool LinkEmails { get { return _options.LinkEmails; } set { _options.LinkEmails = value; } }
+        public bool LinkEmailsWithoutAngleBrackets { get { return _options.LinkEmailsWithoutAngleBrackets; } set { _options.LinkEmailsWithoutAngleBrackets = value; } }
+        public bool StrictBoldItalic { get { return _options.StrictBoldItalic; } set { _options.StrictBoldItalic = value; } }
+        public bool AsteriskIntraWordEmphasis { get { return _options.AsteriskIntraWordEmphasis; } set { _options.AsteriskIntraWordEmphasis = value; } }
+        public int DemoteHeadersOffset { get { return _options.DemoteHeadersOffset; } set { _options.DemoteHeadersOffset = value; } }
 
         /// <summary>
         /// Create a new Markdown instance using default options
@@ -73,24 +74,7 @@ namespace HeyRed.MarkdownSharp
         /// </summary>
         public Markdown(MarkdownOptions options)
         {
-            if (!string.IsNullOrEmpty(options.EmptyElementSuffix))
-            {
-                EmptyElementSuffix = options.EmptyElementSuffix;
-            }
-            AllowTargetBlank = options.AllowTargetBlank;
-            AllowEmptyLinkText = options.AllowEmptyLinkText;
-            DisableHr = options.DisableHr;
-            DisableHeaders = options.DisableHeaders;
-            DisableImages = options.DisableImages;
-            DisableEncodeCodeBlock = options.DisableEncodeCodeBlock;
-            QuoteSingleLine = options.QuoteSingleLine;
-            AutoHyperlink = options.AutoHyperlink;
-            AutoNewLines = options.AutoNewlines;
-            LinkEmails = options.LinkEmails;
-            LinkEmailsWithoutAngleBrackets = options.LinkEmailsWithoutAngleBrackets;
-            StrictBoldItalic = options.StrictBoldItalic;
-            AsteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
-            DemoteHeadersOffset = options.DemoteHeadersOffset;
+            _options = options;
         }
 
         #endregion
