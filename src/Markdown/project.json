@@ -1,7 +1,7 @@
 {
   "title": "Markdown",
   "description": "Open source C# implementation of Markdown processor, as featured on Stack Overflow. This port is based heavily on the original Perl 1.0.1 and Perl 1.0.2b8 implementations of Markdown, with bits and pieces of the apparently much better maintained PHP Markdown folded into it. There are a few Stack Overflow specific modifications (which are all configurable, and all off by default). I'd like to ensure that this version stays within shouting distance of the Markdown \"specification\", such as it is...",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "packOptions": {
     "summary": "Open source C# implementation of Markdown processor, as featured on Stack Overflow.",
     "tags": [ "markdown" ],
@@ -9,7 +9,7 @@
     "repository": { "type": "git" },
     "licenseUrl": "https://raw.githubusercontent.com/hey-red/Markdown/master/LICENSE",
     "iconUrl": "https://raw.githubusercontent.com/hey-red/Markdown/master/icon.png",
-    "releaseNotes": "AllowEmptyLinkText option true by default.\r\nEmails auto-linked only with angle brackets(<address@example.com>).\r\nAdded option to autolink emails without angle brackets(address@example.com).\r\nAdded target=\"_blank\" support."
+    "releaseNotes": "Support demoting header tags."
   },
   "authors": [ "red" ],
   "frameworks": {
