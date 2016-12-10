@@ -13,9 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Markdown", "src\Markdown\Markdown.xproj", "{C7D90432-2BB5-4EBF-A0E8-1D7A1BF2661C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9E79B352-E1F2-4B44-90E4-680409796852}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9E79B352-E1F2-4B44-90E4-680409796852}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MarkdownTests", "tests\MarkdownTests\MarkdownTests.xproj", "{605F9E7A-805A-43BC-B49D-6B517A246478}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MarkdownTests", "test\MarkdownTests\MarkdownTests.xproj", "{605F9E7A-805A-43BC-B49D-6B517A246478}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
