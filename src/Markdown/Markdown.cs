@@ -483,7 +483,7 @@ namespace HeyRed.MarkdownSharp
             // *  List "b" is made of tags which are always block-level;
             //
             string blockTagsA = "ins|del";
-            string blockTagsB = "p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|address|script|noscript|form|fieldset|iframe|math";
+            string blockTagsB = "p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|address|script|noscript|form|fieldset|iframe|math|aside|br|canvas|dd|figcaption|figure|footer|main|nav|output|section|tfoot|video";
 
             // Regular expression for the content of a block tag.
             string attr = @"
