@@ -1,4 +1,4 @@
-#This is legacy project. Use [Markdig](https://github.com/lunet-io/markdig) instead.
+# This is legacy project. Use [Markdig](https://github.com/lunet-io/markdig) instead.
 
 Markdown for C#
 ---------------
