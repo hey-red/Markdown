@@ -98,6 +98,17 @@ namespace HeyRed.MarkdownSharpTests
         }
 
         [Fact]
+        public void OneHeaderAndABullet()
+        {
+            string input = "﻿#Header 1\n* Bullet\n";
+            string expected = "<h1>Header 1</h1>\n\n<ul>\n<li>Bullet</li>\n</ul>";
+
+            string actual = _instance.Transform(input);
+                
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void CodeBlock()
         {
             string input = "code sample:\n\n    <head>\n    <title>page title</title>\n    </head>\n";
