@@ -72,4 +72,4 @@ To create your own extensions you need to implement ```IMarkdownExtension```.
 [Markdown: Syntax Daring Fireball](https://daringfireball.net/projects/markdown/syntax)
 
 ## License
-[MIT](\LICENSE)
+[MIT](LICENSE)
