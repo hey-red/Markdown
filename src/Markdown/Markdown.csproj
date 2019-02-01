@@ -8,7 +8,7 @@
     <TargetFrameworks>net451;netstandard1.3</TargetFrameworks>
     <AssemblyName>Markdown</AssemblyName>
     <AssemblyOriginatorKeyFile>../../key.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <PackageId>Markdown</PackageId>
     <PackageTags>markdown</PackageTags>
