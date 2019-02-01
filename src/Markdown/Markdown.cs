@@ -38,7 +38,7 @@ namespace HeyRed.MarkdownSharp
     /// Markdown allows you to write using an easy-to-read, easy-to-write plain text format, 
     /// then convert it to structurally valid XHTML (or HTML).
     /// </summary>
-    public class Markdown
+    public class Markdown:IMarkdownExtension
     {
         #region Constructors and Options
         private readonly MarkdownOptions _options = new MarkdownOptions();
@@ -167,7 +167,7 @@ namespace HeyRed.MarkdownSharp
 
         private readonly Dictionary<string, string> _urls = new Dictionary<string, string>();
         private readonly Dictionary<string, string> _titles = new Dictionary<string, string>();
-        private readonly Dictionary<string, string> _htmlBlocks = new Dictionary<string, string>();
+        protected readonly Dictionary<string, string> _htmlBlocks = new Dictionary<string, string>();
 
         private int _listLevel;
         private static string AutoLinkPreventionMarker = "\x1AP"; // temporarily replaces "://" where auto-linking shouldn't happen
@@ -220,28 +220,30 @@ namespace HeyRed.MarkdownSharp
         {
             if (string.IsNullOrEmpty(text)) return "";
 
+            Setup();
+
+            text = Normalize(text);
+            text = HashHTMLBlocks(text);
+            text = StripLinkDefinitions(text);
+            text = RunBlockGamut(text);
+            //Console.WriteLine(text);
+            text = Unescape(text);
+            //Console.WriteLine("====================================");
+
+            Cleanup();
+
             // Apply extensions before..
             foreach (var extension in _extensions)
             {
                 text = extension.Transform(text);
             }
 
-            Setup();
-
-            text = Normalize(text);
-
-            text = HashHTMLBlocks(text);
-            text = StripLinkDefinitions(text);
-            text = RunBlockGamut(text);
-            text = Unescape(text);
-
-            Cleanup();
-
             return text;
         }
 
 
         /// <summary>
+        /// 执行转换,形成块级标签如段落、标题和列表项。
         /// Perform transformations that form block-level tags like paragraphs, headers, and list items.
         /// </summary>
         private string RunBlockGamut(string text, bool unhash = true, bool createParagraphs = true)
@@ -272,9 +274,10 @@ namespace HeyRed.MarkdownSharp
 
 
         /// <summary>
+        /// 执行转换中发生* *块级标签如段落、标题和列表项。
         /// Perform transformations that occur *within* block-level tags like paragraphs, headers, and list items.
         /// </summary>
-        private string RunSpanGamut(string text)
+        protected string RunSpanGamut(string text)
         {
             text = DoCodeSpans(text);
             text = EscapeSpecialCharsWithinTagAttributes(text);
@@ -301,17 +304,17 @@ namespace HeyRed.MarkdownSharp
             return text;
         }
 
-        private static Regex _newlinesLeadingTrailing = new Regex(@"^\n+|\n+\z", RegexOptions.Compiled);
-        private static Regex _newlinesMultiple = new Regex(@"\n{2,}", RegexOptions.Compiled);
-        private static Regex _leadingWhitespace = new Regex(@"^[ ]*", RegexOptions.Compiled);
+        protected static Regex _newlinesLeadingTrailing = new Regex(@"^\n+|\n+\z", RegexOptions.Compiled);
+        protected static Regex _newlinesMultiple = new Regex(@"\n{2,}", RegexOptions.Compiled);
+        protected static Regex _leadingWhitespace = new Regex(@"^[ ]*", RegexOptions.Compiled);
 
-        private static Regex _htmlBlockHash = new Regex("\x1AH\\d+H", RegexOptions.Compiled);
+        protected static Regex _htmlBlockHash = new Regex("\x1AH\\d+H", RegexOptions.Compiled);
 
         /// <summary>
         /// splits on two or more newlines, to form "paragraphs";    
         /// each paragraph is then unhashed (if it is a hash and unhashing isn't turned off) or wrapped in HTML p tag
         /// </summary>
-        private string FormParagraphs(string text, bool unhash = true, bool createParagraphs = true)
+        protected virtual string FormParagraphs(string text, bool unhash = true, bool createParagraphs = true)
         {
             // split on two or more newlines
             string[] grafs = _newlinesMultiple.Split(_newlinesLeadingTrailing.Replace(text, ""));
@@ -335,6 +338,7 @@ namespace HeyRed.MarkdownSharp
                             });
                             sanityCheck--;
                         }
+
                         /* if (keepGoing)
                         {
                             // Logging of an infinite loop goes here.
@@ -345,8 +349,39 @@ namespace HeyRed.MarkdownSharp
                 }
                 else
                 {
-                    // do span level processing inside the block, then wrap result in <p> tags
-                    grafs[i] = _leadingWhitespace.Replace(RunSpanGamut(grafs[i]), createParagraphs ? "<p>" : "") + (createParagraphs ? "</p>" : "");
+                    //表格
+                    if (grafs[i].IndexOf("|") >= 0 && grafs[i].IndexOf("-") > 0)
+                    {
+                        StringBuilder tbl = new StringBuilder();
+                        var lines = Regex.Split(grafs[i],"\n");
+                        tbl.Append("<table>");
+                        foreach (var line in lines)
+                        {
+                            if (line.IndexOf("-") >= 0 && line.Replace(" ", "").Replace("|", "").Replace("-","")=="") continue;
+
+                            tbl.Append("<tr><td>");
+                            tbl.Append(line.Replace("|", "</td><td>"));
+                            tbl.Append("</td></tr>");
+                        }
+                        tbl.Append("</table>");
+                        grafs[i] = tbl.ToString();
+                    }
+                    //引用
+                    if (grafs[i].IndexOf("'") >= 0 )
+                    {
+
+                        StringBuilder pre = new StringBuilder();
+                        pre.Append("<pre>");
+                        pre.Append(grafs[i].Trim().Trim('\''));
+                        pre.Append("</pre>");
+                        grafs[i] = pre.ToString();
+                        //if (grafs[i].IndexOf("&") >= 0) Console.WriteLine(grafs[i]);
+                    }
+                    else
+                    {
+                        // do span level processing inside the block, then wrap result in <p> tags
+                        grafs[i] = _leadingWhitespace.Replace(RunSpanGamut(grafs[i]), createParagraphs ? "<p>" : "") + (createParagraphs ? "</p>" : "");
+                    }
                 }
             }
 
@@ -438,6 +473,7 @@ namespace HeyRed.MarkdownSharp
                         (?:\n+|\Z)", _tabWidth - 1), RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
         /// <summary>
+        /// 条链接定义从文本,将标题和url存储在散列引用。
         /// Strips link definitions from text, stores the URLs and titles in hash references.
         /// </summary>
         /// <remarks>
@@ -482,6 +518,7 @@ namespace HeyRed.MarkdownSharp
             //    inline later.
             // *  List "b" is made of tags which are always block-level;
             //
+
             string blockTagsA = "ins|del";
             string blockTagsB = "p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|address|script|noscript|form|fieldset|iframe|math|aside|br|canvas|dd|figcaption|figure|footer|main|nav|output|section|tfoot|video";
 
@@ -606,6 +643,7 @@ namespace HeyRed.MarkdownSharp
         }
 
         /// <summary>
+        /// 替换任何块级HTML块哈希条目
         /// replaces any block-level HTML blocks with hash entries
         /// </summary>
         private string HashHTMLBlocks(string text)
@@ -1707,6 +1745,10 @@ namespace HeyRed.MarkdownSharp
         }
 
         /// <summary>
+        /// 转换所有标签_tabWidth空间;
+        /// 标准化线末梢从DOS(CR低频)或Mac(CR)UNIX(低频);
+        /// 确保文本结尾几个换行;
+        /// 删除空白行(空间)的文本
         /// convert all tabs to _tabWidth spaces; 
         /// standardizes line endings from DOS (CR LF) or Mac (CR) to UNIX (LF); 
         /// makes sure text ends with a couple of newlines; 
