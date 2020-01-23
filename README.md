@@ -43,11 +43,11 @@ string text = mark.Transform(text);
 var options = new MarkdownOptions 
 {
     AutoHyperlink = true,
-    AutoNewlines = true,
+    AutoNewLines = true,
     LinkEmails = true,
     QuoteSingleLine = true,
     StrictBoldItalic = true
-}
+};
 
 Markdown mark = new Markdown(options);
 mark.Transform(text);
